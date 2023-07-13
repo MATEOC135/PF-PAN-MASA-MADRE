@@ -11,7 +11,7 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
 const basename = path.basename(__filename);
-
+ 
 const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
@@ -30,7 +30,20 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Dog } = sequelize.models;
+const { Bread,Cart, Category, User , Cart_product, Product_category } = sequelize.models;
+console.log(Bread,Cart, Category, User , Cart_product, Product_category  )
+console.log("peiasodnaksdnaosndao")
+// Relación uno a muchos: User - Cart
+User.hasMany(Cart, { foreignKey: 'user_id' });
+Cart.belongsTo(User, { foreignKey: 'user_id' });
+
+// Relación muchos a muchos: Cart - Product
+Cart.belongsToMany(Bread, { through: Cart_product, foreignKey: 'cart_id' });
+Bread.belongsToMany(Cart, { through: Cart_product, foreignKey: 'bread_id' });
+
+// Relación muchos a muchos: Bread - Category
+Bread.belongsToMany(Category, { through: Product_category, foreignKey: 'bread_id' });
+Category.belongsToMany(Bread, { through: Product_category, foreignKey: 'category_id' });
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
