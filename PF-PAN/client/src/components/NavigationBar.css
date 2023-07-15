@@ -1,0 +1,66 @@
+.header__navigation-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFC72C; /* Amarillo anaranjado de McDonald's */
+    padding: 10px;
+  }
+  
+  .header__dropdown {
+    position: relative;
+  }
+  
+  .header__all {
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    color: #bb0d33; 
+    border: 1px solid transparent;
+    padding: 5px 10px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .header__all:hover,
+  .header__all:active {
+    border-color: white;
+  }
+  
+  .header__dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FFC72C; /* Amarillo anaranjado de McDonald's */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 10px;
+  }
+  
+  .header__dropdown:hover .header__dropdown-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header__dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .header__dropdown-item:hover {
+    background-color: #FFD745; /* Amarillo claro anaranjado de McDonald's */
+  }
+  
+  .header__button {
+    margin-left: 10px;
+    background-color:#bb0d33; 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header__button:hover {
+    background-color: #FFD745; /* Amarillo claro anaranjado de McDonald's */
+  }
+  
