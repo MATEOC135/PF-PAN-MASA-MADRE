@@ -4,7 +4,7 @@ const controller = require("../controllers/getAllData")
 const router = Router();
 
 router.get("/",controller.getAllUsers)
-reouter.post("/", controller.postBread)
+router.post("/", controller.postBread)
 
 
 

@@ -32,7 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 
-const { Bread,Cart, Category, User , Cart_product, Product_category,Product_categoryB, CategoryB } = sequelize.models;
+const { Bread,Cart, CategoryA, User , Cart_product, Product_category,Product_categoryB, CategoryB } = sequelize.models;
 /* console.log(Bread,Cart, Category, User , Cart_product, Product_category  )
 console.log("aaaaaaaaaaaaaaa-----------aaaaaaaaaaaa") */
 
