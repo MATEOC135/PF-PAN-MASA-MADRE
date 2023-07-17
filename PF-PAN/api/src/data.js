@@ -1,4 +1,4 @@
-const product = [
+ const product = [
     {
     "id":"1",
     "name":"Mixed mother",
@@ -271,4 +271,4 @@ const product = [
     },
 ]
 
-export default product
+module.exports(product); 
