@@ -1,0 +1,140 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #faba00; /* Amarillo de McDonald's */
+}
+
+.header__logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 20px;
+  color: white;
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  transition: border-color 0.3s ease;
+}
+
+.header__logo:hover,
+.header__logo:active {
+  border-color: white;
+}
+
+.header__search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.header__search input {
+  width: 100%;
+  max-width: 600px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.header__search button {
+  background-color: #bb0d33; /* Rojo de McDonald's */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+}
+
+.header__actions > * {
+  margin: 0 10px;
+  color: white;
+  border: 1px solid transparent;
+  padding: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.header__actions > *:hover,
+.header__actions > *:active {
+  border-color: white;
+}
+
+.header__cart-icon {
+  margin-right: 5px;
+  color: #bb0d33; /* Rojo de McDonald's */
+  border: 1px solid transparent;
+  padding: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.header__cart-icon:hover,
+.header__cart-icon:active {
+  border-color: white;
+}
+
+.header__cart-count {
+  background-color: #bb0d33; /* Rojo de McDonald's */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.header__navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5;
+  padding: 10px;
+}
+
+.header__navigation-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8eaf0;
+  padding: 10px;
+}
+
+.header__all {
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.header__all:hover,
+.header__all:active {
+  border-color: white;
+}
+
+.header__dropdown {
+  position: relative;
+}
+
+.header__dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px;
+}
+
+.header__dropdown:hover .header__dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.header__dropdown-item:hover {
+  background-color: #f0f2f5;
+}
