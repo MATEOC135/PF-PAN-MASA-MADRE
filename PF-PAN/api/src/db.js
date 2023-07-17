@@ -44,7 +44,7 @@ Bread.belongsToMany(Cart, { through: Cart_product, foreignKey: 'bread_id' });
 // Relación muchos a muchos: Bread - Category
 Bread.belongsTo(Category, { foreignKey: 'category_id' });
 Category.hasMany(Bread, { foreignKey: 'category_id' });
-
+  
 // Relación uno a muchos: Bread - CategoryB
 Bread.belongsTo(CategoryB, { foreignKey: 'categoryb_id' });
 CategoryB.hasMany(Bread, { foreignKey: 'categoryb_id' });
