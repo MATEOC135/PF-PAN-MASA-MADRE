@@ -112,7 +112,8 @@ const getAllUsers = async(req, res) => {
 
 const getCategoryType = async (req, res) => {
 
-    const categorybd = await CategoryA.findAll();
+
+    const categorybd = await Category.findAll();
     console.log("antes del try")
     try {
         if (categorybd.length === 0) {
@@ -132,10 +133,12 @@ const getCategoryType = async (req, res) => {
 
             console.log(typeUnique);
             const objTypes = typeUnique.map(type1 => ({ name: type1 }))//
-            CategoryA.bulkCreate(objTypes)
+
+            Category.bulkCreate(objTypes)
 
 
-            const typesCreated = await CategoryA.findAll()
+            const typesCreated = await Category.findAll()
+
 
             const typesMap =  typesCreated.map(e => e.name)
 
@@ -202,7 +205,8 @@ const getbreadID = async (req, res) =>{
         
           include: [
                     { model: CategoryB },
-                    { model: CategoryA }  
+                    { model: Category }  
+
                   ]
        
       });

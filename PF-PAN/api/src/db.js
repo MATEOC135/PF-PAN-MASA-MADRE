@@ -30,9 +30,13 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
+<<<<<<< HEAD
 
 
 const { Bread,Cart, CategoryA, User , Cart_product, Product_category,Product_categoryB, CategoryB } = sequelize.models;
+=======
+const { Bread,Cart, Category, User , Cart_product,  CategoryB } = sequelize.models;
+>>>>>>> 2b02fe3bf177ba1437b1403ca767215e5a464aaf
 /* console.log(Bread,Cart, Category, User , Cart_product, Product_category  )
 console.log("aaaaaaaaaaaaaaa-----------aaaaaaaaaaaa") */
 
@@ -44,6 +48,7 @@ Cart.belongsTo(User, { foreignKey: 'user_id' });
 Cart.belongsToMany(Bread, { through: Cart_product, foreignKey: 'cart_id' });
 Bread.belongsToMany(Cart, { through: Cart_product, foreignKey: 'bread_id' });
 
+<<<<<<< HEAD
 // Relación muchos a muchos: Bread - CategoryA
 /* Bread.belongsToMany(CategoryA, { through: Product_category, foreignKey: 'bread_id' });
 CategoryA.belongsToMany(Bread, { through: Product_category, foreignKey: 'categoryA_id' });
@@ -63,6 +68,15 @@ CategoryB.hasMany(Bread, { foreignKey: 'categoryb_id' });
 /* Bread.belongsToMany(CategoryB, { through: Product_categoryB, foreignKey: 'bread_id' });
 CategoryB.belongsToMany(Bread, { through: Product_categoryB, foreignKey: 'categoryb_id' }); */
 
+=======
+// Relación muchos a muchos: Bread - Category
+Bread.belongsTo(Category, { foreignKey: 'category_id' });
+Category.hasMany(Bread, { foreignKey: 'category_id' });
+  
+// Relación uno a muchos: Bread - CategoryB
+Bread.belongsTo(CategoryB, { foreignKey: 'categoryb_id' });
+CategoryB.hasMany(Bread, { foreignKey: 'categoryb_id' });
+>>>>>>> 2b02fe3bf177ba1437b1403ca767215e5a464aaf
 
 
 // Aca vendrian las relaciones

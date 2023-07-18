@@ -223,7 +223,7 @@ const product = [
     id:"21",
     name:"gluten bread",
     availability:"true",
-    weight:"1gk",
+    weight:"1kg",
     type:"integral",
     ingredients:["200 g of rice flour" ,"40 g of potato starch or cassava flour" ,"2 eggs" ,"1 teaspoon salt" ,"1 shot of soda" ,"required amount of milk" ,"oil"],
     description:"Gluten is a set of small proteins, contained exclusively in the seeds of dry cereals, mainly wheat, but also barley and rye, as well as any of their varieties and hybrids.",
