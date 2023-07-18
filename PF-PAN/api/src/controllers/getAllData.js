@@ -1,5 +1,5 @@
 const data  = require("../../Data")
-const { Bread, Category,CategoryB } = require("../db.js");
+const { Bread, CategoryA,CategoryB } = require("../db.js");
 const { Op } = require('sequelize');
 const getAllUsers = async(req, res) => {
     const { name } = req.query
@@ -8,7 +8,7 @@ const getAllUsers = async(req, res) => {
             const allBreadDb = await Bread.findAll({
                 include: [
                   { model: CategoryB },
-                  { model: Category }  
+                  { model: CategoryA }  
                 ]
               });
             const allBreads= [ ...data,...allBreadDb]
@@ -20,7 +20,7 @@ const getAllUsers = async(req, res) => {
                 where: { name: { [Op.iLike]: `%${searchName}%` } },
                 include: [
                   { model: CategoryB },
-                  { model: Category }  
+                  { model: CategoryA }  
                 ]
               });
             const dataBreadsHost = await data.filter(e => {
@@ -75,7 +75,7 @@ const getAllUsers = async(req, res) => {
        
 
         if (weight && weight.length) {
-            const categorybd = await Category.findAll({ where: { name: weight } });
+            const categorybd = await CategoryA.findAll({ where: { name: weight } });
             console.log(categorybd)
             await resp.setTemperaments(categorybd)
 
@@ -104,9 +104,127 @@ const getAllUsers = async(req, res) => {
 
 }
 
+
+
+
+//////////////////////////////////////////////////
+
+
+const getCategoryType = async (req, res) => {
+
+    const categorybd = await CategoryA.findAll();
+    console.log("antes del try")
+    try {
+        if (categorybd.length === 0) {
+
+            let typeB = [];
+            data.forEach(objeto => {
+                if (!objeto.hasOwnProperty('type')) {
+                    typeB.push("sin tipo especifico  asociado");
+                } else {
+                    const temperamentosSeparados = objeto.type
+                    typeB = typeB.concat(temperamentosSeparados)
+                }
+            });
+            console.log(typeB)
+
+            const typeUnique = Array.from(new Set(typeB));
+
+            console.log(typeUnique);
+            const objTypes = typeUnique.map(type1 => ({ name: type1 }))//
+            CategoryA.bulkCreate(objTypes)
+
+
+            const typesCreated = await CategoryA.findAll()
+
+            const typesMap =  typesCreated.map(e => e.name)
+
+            res.status(200).json(typesMap)
+        } else {
+            console.log("entro al elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+            const categoryName = categorybd.map(e => e.name)
+            res.status(200).json(categoryName)
+        }
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const getCategoryTypeB = async (req, res) => {
+
+    const categorybd = await CategoryB.findAll();
+    console.log("antes del try")
+    try {
+        if (categorybd.length === 0) {
+
+            let typeB = [];
+            data.forEach(objeto => {
+                if (!objeto.hasOwnProperty('weight')) {
+                    typeB.push("sin tipo especifico  asociado");
+                } else {
+                    const temperamentosSeparados = objeto.weight
+                    typeB = typeB.concat(temperamentosSeparados)
+                }
+            });
+            console.log(typeB)
+
+            const typeUnique = Array.from(new Set(typeB));
+
+            console.log(typeUnique);
+            const objTypes = typeUnique.map(type1 => ({ name: type1 }))//aqui creamos un array de objetos a pushear en DIets
+            CategoryB.bulkCreate(objTypes) // aqui crea las filas
+
+
+            const typesCreated = await CategoryB.findAll()
+
+            const typesMap =  typesCreated.map(e => e.name)
+
+            res.status(200).json(typesMap)
+        } else {
+            console.log("entro al elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+            const categoryName = categorybd.map(e => e.name)
+            res.status(200).json(categoryName)
+        }
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+
+
+
+
+
+const getbreadID = async (req, res) =>{
+    const { id } = req.params;
+    try {
+      const bread = await Bread.findByPk(id.toUpperCase(), {
+        
+          include: [
+                    { model: CategoryB },
+                    { model: CategoryA }  
+                  ]
+       
+      });
   
+      if (bread) return res.status(200).json(bread);
+      return res.status(404).json({
+        error: {
+          message: "Bread doesn't exist",
+          values: { ...req.params },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: {
+          message: "Server error",
+        },
+      });
+    }
+  };
   
-  module.exports = { postBread, getAllUsers};
+  module.exports = { postBread, getAllUsers, getCategoryType,getCategoryTypeB,getbreadID};
   
 
 

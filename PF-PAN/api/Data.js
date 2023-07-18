@@ -81,7 +81,7 @@ const product = [
     name:"bread with nuts",
     availability:"true",
     weight:"2kg",
-    type:"salado",
+    type:"salty",
     ingredients:["80 gr raw almonds" ,"1 tablespoon brown sugar" ,"80 gr of hazelnuts" ,"1 teaspoon dried thyme" ,"80 gr of walnuts" ,"1 teaspoon bicarbonate of soda" ,"40 gr of bread seeds" ,"25 grams of raisins" ,"25 gr of pitted plums" ,"250 ml of vegetable milk" ,"140 gr of pastry flour" ,"A little bit of salt"],
     description:"It is a simple recipe in which we use non-dairy milk and a selection of nuts, which give a special touch to this basic food.",
     price:"7$",
