@@ -14,7 +14,7 @@ const getAllUsers = async(req, res) => {
               });
               console.log(allBreadDb, "esta es la data bd")
             const allBreads= [ ...data,...allBreadDb]
-            console.log(allBreads)
+            console.log
             res.status(200).json(allBreads)
         } else {    
         if (name !== undefined) {
@@ -53,7 +53,7 @@ const getAllUsers = async(req, res) => {
 
 
     try {
-        console.log("entra al try")
+     
         if (!name || !image || !ingredients|| !price|| !type ||!weight || !description || !availability){
             return res.status(400).json({ message: 'faltan datos ' });
           }
@@ -62,7 +62,7 @@ const getAllUsers = async(req, res) => {
 
         
         const [resp, created] = await Bread.findOrCreate({ where: { name, image, ingredients: ingredientsString, price, description, availability} })
-
+        console.log("entra al try")
 
         if (weight && weight.length) {
             const categorybd = await Type.findAll({ where: { name:type } });
@@ -71,6 +71,7 @@ const getAllUsers = async(req, res) => {
             await resp.addType(categorybd)
 
         }
+        console.log("entra al try")
  
         if (type && type.length) {
             const categorybdT = await Weight.findAll({ where: { name:weight } });
@@ -89,6 +90,9 @@ const getAllUsers = async(req, res) => {
 
 
     } catch (error) {
+
+      console.log("entra al catch")
+      
         res.status(400).json({ error: error.message })
 
     }

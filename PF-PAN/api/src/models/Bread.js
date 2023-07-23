@@ -1,6 +1,4 @@
 const { DataTypes } = require('sequelize');
-const Category = require('./Category');
-const CategoryB = require('./CategoryB');
 
 module.exports = (sequelize) => {
   sequelize.define('bread', {
@@ -20,7 +18,7 @@ module.exports = (sequelize) => {
       
     },
     ingredients: {
-      type: DataTypes.STRING,
+      type:DataTypes.STRING,
       allowNull: false
     },
     price: {
