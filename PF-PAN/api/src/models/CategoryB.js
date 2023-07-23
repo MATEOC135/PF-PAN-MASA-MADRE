@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('categoryB', {
+  sequelize.define('weight', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,

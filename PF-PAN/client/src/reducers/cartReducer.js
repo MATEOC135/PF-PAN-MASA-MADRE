@@ -1,18 +1,25 @@
 // cartReducer.js
+import axios from "axios";
 
 // Definir los tipos de acciones
 const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const CLEAR_CART = 'CLEAR_CART';
-
+const ALL_BREADS = "ALL_BREADS"
 // Estado inicial
 const initialState = {
   items: [],
+  dataBreads:[],
 };
 
 // Reducer del carrito
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ALL_BREADS:
+      return {
+        ...state,
+        dataBreads: [...state.dataBreads, action.payload],
+      };
     case ADD_TO_CART:
       return {
         ...state,
@@ -34,6 +41,26 @@ const cartReducer = (state = initialState, action) => {
 };
 
 // Acción para agregar un producto al carrito
+export function allBreads(bread) {  
+  return  async function (dispatch){
+    
+    try {
+      const {data} = await axios.get(`http://localhost:3001/client?name=${bread}`)
+  
+      dispatch({type:ALL_BREADS,payload: data})
+      
+    } catch (error) {
+      window.alert(error)
+      
+    }
+  
+  
+  }
+
+}
+
+
+
 export const addToCart = (product) => ({
   type: ADD_TO_CART,
   payload: product,

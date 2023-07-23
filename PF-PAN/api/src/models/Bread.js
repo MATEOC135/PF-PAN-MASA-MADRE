@@ -1,4 +1,6 @@
 const { DataTypes } = require('sequelize');
+const Category = require('./Category');
+const CategoryB = require('./CategoryB');
 
 module.exports = (sequelize) => {
   sequelize.define('bread', {
@@ -15,6 +17,7 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: false
+      
     },
     ingredients: {
       type: DataTypes.STRING,
@@ -32,6 +35,15 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+/*    category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+    categoryb_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+       */
   }, {
     timestamps: false,
     underscored: false, 

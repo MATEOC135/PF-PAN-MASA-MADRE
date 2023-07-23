@@ -30,8 +30,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Bread,Cart, Category, User , Cart_product,  CategoryB } = sequelize.models;
-/* console.log(Bread,Cart, Category, User , Cart_product, Product_category  )
+const { Bread,Cart, Type, User , Cart_product,  Weight } = sequelize.models;
+/* console.log(Bread,Cart, Type, User , Cart_product, Product_category  )
 console.log("aaaaaaaaaaaaaaa-----------aaaaaaaaaaaa") */
 // Relación uno a muchos: User - Cart
 User.hasMany(Cart, { foreignKey: 'user_id' });
@@ -41,14 +41,13 @@ Cart.belongsTo(User, { foreignKey: 'user_id' });
 Cart.belongsToMany(Bread, { through: Cart_product, foreignKey: 'cart_id' });
 Bread.belongsToMany(Cart, { through: Cart_product, foreignKey: 'bread_id' });
 
-// Relación muchos a muchos: Bread - Category
-Bread.belongsTo(Category, { foreignKey: 'category_id' });
-Category.hasMany(Bread, { foreignKey: 'category_id' });
-  
-// Relación uno a muchos: Bread - CategoryB
-Bread.belongsTo(CategoryB, { foreignKey: 'categoryb_id' });
-CategoryB.hasMany(Bread, { foreignKey: 'categoryb_id' });
+// Relación muchos a muchos: Bread - Type
+Bread.belongsToMany(Type, { through: 'BreadCategory' });
+Type.belongsToMany(Bread, { through: 'BreadCategory' });
 
+// Relación muchos a muchos: Bread - Weight
+Bread.belongsToMany(Weight, { through: 'BreadCategoryB' });
+Weight.belongsToMany(Bread, { through: 'BreadCategoryB' });
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

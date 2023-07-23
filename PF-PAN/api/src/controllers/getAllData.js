@@ -1,17 +1,20 @@
 const data  = require("../../Data")
-const { Bread, Category,CategoryB } = require("../db.js");
+const { Bread, Type,Weight } = require("../db.js");
 const { Op } = require('sequelize');
+////////////////////////////////////////////  Get all User ///////////////////////////////////////////
 const getAllUsers = async(req, res) => {
     const { name } = req.query
     try {
         if (name === "") {
             const allBreadDb = await Bread.findAll({
                 include: [
-                  { model: CategoryB },
-                  { model: Category }  
+                  { model: Weight },
+                  { model: Type }  
                 ]
               });
+              console.log(allBreadDb, "esta es la data bd")
             const allBreads= [ ...data,...allBreadDb]
+            console.log(allBreads)
             res.status(200).json(allBreads)
         } else {    
         if (name !== undefined) {
@@ -19,8 +22,8 @@ const getAllUsers = async(req, res) => {
             const allBreadDb = await Bread.findAll({
                 where: { name: { [Op.iLike]: `%${searchName}%` } },
                 include: [
-                  { model: CategoryB },
-                  { model: Category }  
+                  { model: Weight },
+                  { model: Type }  
                 ]
               });
             const dataBreadsHost = await data.filter(e => {
@@ -42,52 +45,40 @@ const getAllUsers = async(req, res) => {
         res.status(400).json({ error: error.message })
     }
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
+  ///////////////////////////////// POST BREAD///////////////////////////////////////////////
   const postBread= async (req, res) => {
     const { name, image, ingredients, price,weight,type, description, availability} = req.body;
  
   
-    console.log(name, image, ingredients,weight, price, description, availability)
-   
+
 
     try {
         console.log("entra al try")
-
-
-        console.log(name, image, ingredients,type, price, description, availability)
         if (!name || !image || !ingredients|| !price|| !type ||!weight || !description || !availability){
             return res.status(400).json({ message: 'faltan datos ' });
           }
+
+          const ingredientsString = Array.isArray(ingredients) ? ingredients.join(', ') : '';
+
         
-        const [resp, created] = await Bread.findOrCreate({ where: { name, image, ingredients, price, description, availability} })
-       
+        const [resp, created] = await Bread.findOrCreate({ where: { name, image, ingredients: ingredientsString, price, description, availability} })
+
 
         if (weight && weight.length) {
-            const categorybd = await Category.findAll({ where: { name: weight } });
+            const categorybd = await Type.findAll({ where: { name:type } });
+            console.log("aqui va processsssssssssssssssss")
             console.log(categorybd)
-            await resp.setTemperaments(categorybd)
+            await resp.addType(categorybd)
 
         }
-        
+ 
         if (type && type.length) {
-            const categorybdT = await CategoryB.findAll({ where: { name: type } });
-            console.log(categorybd)
-            await resp.setTemperaments(categorybdT)
+            const categorybdT = await Weight.findAll({ where: { name:weight } });
+            console.log(categorybdT)
+            await resp.addWeight(categorybdT)
 
         }
-
+        console.log(resp)
 
 
 
@@ -107,12 +98,12 @@ const getAllUsers = async(req, res) => {
 
 
 
-//////////////////////////////////////////////////
+////////////////////////////////////////////////// CATEGORY TYPE ////////////////////////////////////////
 
 
 const getCategoryType = async (req, res) => {
 
-    const categorybd = await Category.findAll();
+    const categorybd = await Type.findAll();
     console.log("antes del try")
     try {
         if (categorybd.length === 0) {
@@ -132,10 +123,10 @@ const getCategoryType = async (req, res) => {
 
             console.log(typeUnique);
             const objTypes = typeUnique.map(type1 => ({ name: type1 }))//
-            Category.bulkCreate(objTypes)
+            Type.bulkCreate(objTypes)
 
 
-            const typesCreated = await Category.findAll()
+            const typesCreated = await Type.findAll()
 
             const typesMap =  typesCreated.map(e => e.name)
 
@@ -152,7 +143,7 @@ const getCategoryType = async (req, res) => {
 
 const getCategoryTypeB = async (req, res) => {
 
-    const categorybd = await CategoryB.findAll();
+    const categorybd = await Weight.findAll();
     console.log("antes del try")
     try {
         if (categorybd.length === 0) {
@@ -162,8 +153,8 @@ const getCategoryTypeB = async (req, res) => {
                 if (!objeto.hasOwnProperty('weight')) {
                     typeB.push("sin tipo especifico  asociado");
                 } else {
-                    const temperamentosSeparados = objeto.weight
-                    typeB = typeB.concat(temperamentosSeparados)
+                    const weight1 = objeto.weight
+                    typeB = typeB.concat(weight1)
                 }
             });
             console.log(typeB)
@@ -172,10 +163,10 @@ const getCategoryTypeB = async (req, res) => {
 
             console.log(typeUnique);
             const objTypes = typeUnique.map(type1 => ({ name: type1 }))//aqui creamos un array de objetos a pushear en DIets
-            CategoryB.bulkCreate(objTypes) // aqui crea las filas
+            Weight.bulkCreate(objTypes) // aqui crea las filas
 
 
-            const typesCreated = await CategoryB.findAll()
+            const typesCreated = await Weight.findAll()
 
             const typesMap =  typesCreated.map(e => e.name)
 
@@ -194,15 +185,17 @@ const getCategoryTypeB = async (req, res) => {
 
 
 
-
+/////////////////////////////////////////// DETAIL ID /////////////////////////////////////////////
 const getbreadID = async (req, res) =>{
     const { id } = req.params;
+
     try {
+   
       const bread = await Bread.findByPk(id.toUpperCase(), {
         
           include: [
-                    { model: CategoryB },
-                    { model: Category }  
+                    { model: Weight },
+                    { model: Type }  
                   ]
        
       });
@@ -223,8 +216,50 @@ const getbreadID = async (req, res) =>{
       });
     }
   };
+
+
+
+
+
+
+
+
+
+
+  const postBreadData = async (req, res) => {
+    try {
+     
   
-  module.exports = { postBread, getAllUsers, getCategoryType,getCategoryTypeB,getbreadID};
+      for (const bread of data) {
+        const { name, image, ingredients, price, weight, type, description, availability } = bread;
+  
+        if (!name || !image || !ingredients || !price || !type || !weight || !description || !availability) {
+          return res.status(400).json({ message: 'Faltan datos obligatorios.' });
+        }
+  
+        const ingredientsString = Array.isArray(ingredients) ? ingredients.join(', ') : ingredients;
+  
+        const [resp, created] = await Bread.findOrCreate({
+          where: { name, image, ingredients: ingredientsString, price, description, availability }
+        });
+  
+        if (weight && weight.length) {
+          const categorybd = await Type.findAll({ where: { name: type } });
+          await resp.addType(categorybd);
+        }
+  
+        if (type && type.length) {
+          const categorybdT = await Weight.findAll({ where: { name: weight } });
+          await resp.addWeight(categorybdT);
+        }
+      }
+  
+      res.status(200).json("Datos creados exitosamente.");
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  module.exports = { postBread, getAllUsers, getCategoryType,getCategoryTypeB,getbreadID, postBreadData};
   
 
 
