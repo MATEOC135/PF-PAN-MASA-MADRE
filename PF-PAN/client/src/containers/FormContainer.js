@@ -1,17 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import './NavigationBar.css'
+import './FormContainer.css';
 
 const FormContainer = () => {
   return (
     <div >
-        <div>
-            <h3>Crea el pan que te guste</h3>
+        <div className='divform'>
             <form>
-              
+             <h3 className='title'>Crear nuevo producto</h3>
               <div >
                 <div >
-                    <label>-Nombre:</label>
+                    <label className='name'>Nombre: </label>
                     <input 
                     placeholder="Name..."
                     type="text" 
@@ -19,7 +18,7 @@ const FormContainer = () => {
                     />
                 </div>
                 <div >
-                    <label>-Ingredientes:</label>
+                    <label className='Ingredients'>Ingredientes: </label>
                     <input 
                     placeholder="Ingredientes..."
                     type="text" 
@@ -27,14 +26,22 @@ const FormContainer = () => {
                     />
                 </div>
                 <div >
-                    <label>-Descripcion</label>
+                    <label className='description'>Descripcion: </label>
                     <input 
                     placeholder="Descripcion..."
                     type="text" 
                     name="names"
                     />
                 </div>
-                  
+                <div >
+                    <label className='price'>Precio sugerido: </label>
+                    <input 
+                    placeholder="Precio..."
+                    type="text" 
+                    name="names"
+                    />
+                </div>
+                  <button className='button'>Crear</button>
                      
 
       
