@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__logo">
-        <Link to="/" className="navbar-brand">Logo de tu tienda</Link>
+        <Link to="/" className="navbar-brand">MasterBakers</Link>
       </div>
       <div className="header__search">
         <input type="text" className="form-control" placeholder="Buscar productos" />
