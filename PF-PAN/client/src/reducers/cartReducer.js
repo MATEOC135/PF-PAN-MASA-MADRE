@@ -6,10 +6,13 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const CLEAR_CART = 'CLEAR_CART';
 const ALL_BREADS = "ALL_BREADS"
+const FILTER_TYPE ="FILTER_TYPE"
+const FILTER_WEIGHT = "FILTER_WEIGHT"
 // Estado inicial
 const initialState = {
   items: [],
   dataBreads:[],
+  dataBreadsCF:[],
 };
 
 // Reducer del carrito
@@ -18,7 +21,8 @@ const cartReducer = (state = initialState, action) => {
     case ALL_BREADS:
       return {
         ...state,
-        dataBreads: [...state.dataBreads, action.payload],
+        dataBreads: [action.payload],
+        dataBreadsCF: [action.payload],
       };
     case ADD_TO_CART:
       return {
@@ -35,6 +39,41 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         items: [],
       };
+      ///////////////////////// FILTROS DE TIPO///////////////
+    case FILTER_TYPE:
+
+      const filteredItemsT = state.dataBreadsCF.flat().filter((item) => {
+        const hasType = item.type && item.type === action.payload;
+        console.log(action.payload)
+        const hasTypes = item.types && item.types.some((type) => type.name.includes(action.payload));
+       console.log(hasTypes)
+       
+        return hasType || hasTypes;
+      }); 
+      console.log(filteredItemsT)
+      
+        return  {
+            ...state,
+            dataBreads: [...filteredItemsT]
+          };
+                ///////////////////////// FILTROS DE PESO///////////////
+   case FILTER_WEIGHT:
+
+   const filteredItems = state.dataBreadsCF.flat().filter((item) => {
+    const hasTypes = item.weight && item.weight === action.payload;
+    console.log(action.payload)
+    const hasTypess = item.weights && item.weights.some((type) => type.name.includes(action.payload));
+   console.log(hasTypes)
+   
+    return hasTypess || hasTypes;
+  }); 
+  console.log(filteredItems)
+  
+    return  {
+        ...state,
+        dataBreads: [...filteredItems]
+      };
+   
     default:
       return state;
   }
@@ -58,6 +97,17 @@ export function allBreads(bread) {
   }
 
 }
+
+export const filterType = (type) => ({
+  type: FILTER_TYPE,
+  payload: type,
+});
+export const filterWeight = (type) => ({
+  type: FILTER_WEIGHT,
+  payload: type,
+});
+
+
 
 
 
