@@ -12,8 +12,10 @@ import { useSelector } from 'react-redux';
 
 const ProductCarousel = () => {
   const products = useSelector(state => state.cart.dataBreads);
+  const selectedProducts = (products.flat()).slice(0,6);
+
   
-  console.log(products.flat()) 
+
 
 
 
@@ -32,7 +34,7 @@ const ProductCarousel = () => {
     <div className="product-carousel">
       <h2 className="carousel-title">Productos</h2>
       <Slider {...settings}>
-        {products.flat().map((product) => (
+        {selectedProducts.map((product) => (
           <div key={product.id} className="product-item">
             <img src={product.image} alt={product.name} />
             <h3>{product.name}</h3>
