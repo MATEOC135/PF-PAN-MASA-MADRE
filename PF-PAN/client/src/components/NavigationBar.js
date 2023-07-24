@@ -1,10 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavigationBar.css'
+
 import { useDispatch } from 'react-redux';
 import { filterType, filterWeight } from '../reducers/cartReducer';
-import { Link } from "react-router-dom";
- 
+
 const NavigationBar = () => {
   const dispatch =useDispatch()
   const handleClick= (type)=>{
@@ -47,7 +47,7 @@ const NavigationBar = () => {
       </div>
       <button className="header__button btn btn-primary">Ofertas del Día</button>
       <button className="header__button btn btn-primary">Comprar de Nuevo</button>     
-      <Link to= "/form"> <button className="header__button btn btn-primary">Crear un nuevo producto</button></Link>
+      {/* <Link to= "/form"> <button className="header__button btn btn-primary">Crear un nuevo producto</button></Link> */}
     </div>
   );
 };
