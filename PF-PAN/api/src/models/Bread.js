@@ -15,9 +15,10 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: false
+      
     },
     ingredients: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type:DataTypes.STRING,
       allowNull: false
     },
     price: {
@@ -32,6 +33,15 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+/*    category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+    categoryb_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+       */
   }, {
     timestamps: false,
     underscored: false, 
