@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavigationBar.css'
-
+import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { filterType, filterWeight } from '../reducers/cartReducer';
 
@@ -45,9 +45,9 @@ const NavigationBar = () => {
         </div>
         
       </div>
-      <button className="header__button btn btn-primary">Ofertas del Día</button>
-      <button className="header__button btn btn-primary">Comprar de Nuevo</button>     
-      {/* <Link to= "/form"> <button className="header__button btn btn-primary">Crear un nuevo producto</button></Link> */}
+      {/* <button className="header__button btn btn-primary">Ofertas del Día</button>
+      <button className="header__button btn btn-primary">Comprar de Nuevo</button>     */} 
+       <Link to= "/form"> <button className="header__button btn btn-primary">Crear un nuevo producto</button></Link> 
     </div>
   );
 };
