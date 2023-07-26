@@ -51,17 +51,12 @@ const NavigationBar = () => {
         </div>
         
       </div>
-<<<<<<< HEAD
-      {/* <button className="header__button btn btn-primary">Ofertas del Día</button>
-      <button className="header__button btn btn-primary">Comprar de Nuevo</button>     */} 
-       <Link to= "/form"> <button className="header__button btn btn-primary">Crear un nuevo producto</button></Link> 
-=======
       <button className="header__button btn btn-primary"  onClick={()=>dispatch(allBreads(""))}>Reiniciar Filtros</button>
 
        
       <Link to= "/form"> <button className="header__button btn btn-primary">Crear un nuevo producto</button></Link> 
 
->>>>>>> 1dcea878ef2ce90b488b81ec737d49f49135b7ff
+
     </div>
   );
 };
