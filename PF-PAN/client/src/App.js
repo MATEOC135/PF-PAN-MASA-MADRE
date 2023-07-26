@@ -17,7 +17,7 @@ const App = () => {
           <Route path="/" exact component={HomeContainer} />
           
           <Route path="/product/:productId" component={ProductDetailsContainer} />
-        {/*   <Route path="/form" component={FormContainer} /> */}
+
 
           {/* Otras rutas */}
         </Switch>
