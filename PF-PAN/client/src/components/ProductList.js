@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 const ProductList = () => {
   // Datos de ejemplo para la lista de productos
  const products =useSelector(state => state.cart.dataBreads)
+
  const [currentPage, setCurrentPage] = useState(1);
 const [itemsPerPage] = useState(6); 
  const [prooducts,setProoducts]= useState([])
+
  useEffect(()=>{
   
   setProoducts(products)

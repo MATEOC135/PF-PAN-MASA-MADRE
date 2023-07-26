@@ -28,7 +28,8 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__logo">
-        <Link to="/" className="navbar-brand">MasterBakers</Link>
+       <Link to="/" className="navbar-brand">MasterBakers</Link>
+
       </div>
       <div className="header__search">
         <input type="text" className="form-control" onChange={ handleSearch} placeholder="Buscar productos" />

@@ -38,7 +38,7 @@ const ProductCarousel = () => {
           <div key={product.id} className="product-item">
             <img src={product.image} alt={product.name} />
             <h3>{product.name}</h3>
-            <p>Precio: ${product.price}</p>
+            <p>Precio: {product.price}</p>
             <Link to={`/product/${product.id}`} className="product-details-link">
               Ver detalles
             </Link>
