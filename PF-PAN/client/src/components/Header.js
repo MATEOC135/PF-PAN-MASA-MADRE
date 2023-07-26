@@ -28,9 +28,8 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__logo">
-        <Link to="/" className="navbar-brand">
-        <img src="https://www.mundosano.com/__export/1614375425548/sites/elimparcial/img/2021/02/26/masa-madre.jpg_673822677.jpg" alt="Logo Home" />
-        </Link>
+       <Link to="/" className="navbar-brand">MasterBakers</Link>
+
       </div>
       <div className="header__search">
         <input type="text" className="form-control" onChange={ handleSearch} placeholder="Buscar productos" />
@@ -49,5 +48,7 @@ const Header = () => {
   );
 };
 
+
 export default Header;
+
 

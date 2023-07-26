@@ -13,6 +13,8 @@ const initialState = {
   items: [],
   dataBreads:[],
   dataBreadsCF:[],
+  dataAux:[],
+  dataAuxW:[],
 };
 
 // Reducer del carrito
@@ -23,6 +25,8 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         dataBreads: [action.payload],
         dataBreadsCF: [action.payload],
+        dataAux:[],
+  
       };
     case ADD_TO_CART:
       return {
@@ -42,37 +46,99 @@ const cartReducer = (state = initialState, action) => {
       ///////////////////////// FILTROS DE TIPO///////////////
     case FILTER_TYPE:
 
-      const filteredItemsT = state.dataBreadsCF.flat().filter((item) => {
-        const hasType = item.type && item.type === action.payload;
+      if (state.dataAuxW.length >0) {
+        if (action.payload=== "Ninguno") {
+          return   {
+            ...state,
+            dataBreads: [...state.dataAuxW] 
+          };
+          
+        } else {
+          const filterComb= state.dataAuxW.filter((item)=> {
+            const hasType = item.type && item.type === action.payload;
+            console.log(action.payload)
+            const hasTypes = item.types && item.types.some((type) => type.name.includes(action.payload));
+           console.log(hasTypes)
+           
+            return hasType || hasTypes; 
+  
+          })
+          return  {
+            ...state,
+            dataBreads: [...filterComb] 
+          };
+          
+        }
+   
+        
+        
+      } else {
+        const filteredItemsT = state.dataBreadsCF.flat().filter((item) => {
+          const hasType = item.type && item.type === action.payload;
+          console.log(action.payload)
+          const hasTypes = item.types && item.types.some((type) => type.name.includes(action.payload));
+         console.log(hasTypes)
+         
+          return hasType || hasTypes;
+        }); 
+        console.log(filteredItemsT)
+        
+          return  {
+              ...state,
+              dataBreads: [...filteredItemsT],
+              dataAux:[...filteredItemsT]
+            };
+
+        
+      }
+ 
+ 
+                ///////////////////////// FILTROS DE PESO///////////////
+   case FILTER_WEIGHT:
+    if (state.dataAux.length>0) {
+      if (action.payload === "Ninguno") {
+        const aux = state.dataAux
+        return{
+          ...state,
+          dataBreads: [...aux]
+        
+        };
+      } else {
+        const filterCom = state.dataAux.flat().filter((item) => {
+          const hasTypes = item.weight && item.weight === action.payload;
+          console.log(action.payload)
+          const hasTypess = item.weights && item.weights.some((type) => type.name.includes(action.payload));
+         console.log(hasTypes)
+          return hasTypess || hasTypes;
+        }); 
+        return  {
+          ...state,
+          dataBreads: [...filterCom],
+        
+        };
+      }
+
+
+    } else {
+      const filteredItems = state.dataBreadsCF.flat().filter((item) => {
+        const hasTypes = item.weight && item.weight === action.payload;
         console.log(action.payload)
-        const hasTypes = item.types && item.types.some((type) => type.name.includes(action.payload));
+        const hasTypess = item.weights && item.weights.some((type) => type.name.includes(action.payload));
        console.log(hasTypes)
        
-        return hasType || hasTypes;
+        return hasTypess || hasTypes;
       }); 
-      console.log(filteredItemsT)
+      console.log(filteredItems)
       
         return  {
             ...state,
-            dataBreads: [...filteredItemsT]
+            dataBreads: [...filteredItems],
+            dataAuxW:[...filteredItems],
           };
-                ///////////////////////// FILTROS DE PESO///////////////
-   case FILTER_WEIGHT:
+      
+    }
 
-   const filteredItems = state.dataBreadsCF.flat().filter((item) => {
-    const hasTypes = item.weight && item.weight === action.payload;
-    console.log(action.payload)
-    const hasTypess = item.weights && item.weights.some((type) => type.name.includes(action.payload));
-   console.log(hasTypes)
-   
-    return hasTypess || hasTypes;
-  }); 
-  console.log(filteredItems)
-  
-    return  {
-        ...state,
-        dataBreads: [...filteredItems]
-      };
+ 
    
     default:
       return state;
