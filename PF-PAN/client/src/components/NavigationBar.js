@@ -16,7 +16,7 @@ const NavigationBar = () => {
   return (
     <div className="header__navigation-bar navbar navbar-light bg-light">
       <div className="header__dropdown">
-        <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">Ordenamientos</span>
+        <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">Ordenar Por</span>
         <div className="header__dropdown-content dropdown-menu">
           <span className="header__dropdown-item dropdown-item">A-Z</span>
           <span className="header__dropdown-item dropdown-item">Z-A</span>
