@@ -42,3 +42,38 @@ button {
 button:hover {
   background-color: #FFD745; /* Amarillo claro anaranjado de McDonald's */
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination button {
+  background-color: #FABA00;
+  color: #BB0D33;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #FFD745;
+}
+
+.pagination button.active {
+  background-color: #BB0D33;
+  color: #FFF;
+}
