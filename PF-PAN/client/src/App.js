@@ -5,7 +5,9 @@ import HomeContainer from './containers/HomeContainer';
 
 import ProductDetailsContainer from './containers/ProductDetailsContainer';
 import NavigationBar from './components/NavigationBar';
-/* import FormContainer from './containers/FormContainer'; */
+
+import FormContainer from './containers/FormContainer';
+
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
           <Route path="/" exact component={HomeContainer} />
           
           <Route path="/product/:productId" component={ProductDetailsContainer} />
+          <Route path="/form" component={FormContainer} />
 
 
           {/* Otras rutas */}
