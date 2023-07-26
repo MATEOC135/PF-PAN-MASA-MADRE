@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import axios from "axios"
+
 import { useSelector } from 'react-redux';
 
 const ProductCarousel = () => {
