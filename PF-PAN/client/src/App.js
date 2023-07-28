@@ -8,7 +8,7 @@ import NavigationBar from './components/NavigationBar';
 
 import FormContainer from './containers/FormContainer';
 import axios from "axios";
-axios.defaults.baseURL='https://pan-4dg1.onrender.com/';
+axios.defaults.baseURL='https://pan-4dg1.onrender.com';
 
 
 
