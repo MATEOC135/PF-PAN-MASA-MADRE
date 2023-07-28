@@ -150,7 +150,7 @@ export function allBreads(bread) {
   return  async function (dispatch){
     
     try {
-      const {data} = await axios.get(`http://localhost:3001/client?name=${bread}`)
+      const {data} = await axios.get(`/client?name=${bread}`)
   
       dispatch({type:ALL_BREADS,payload: data})
       

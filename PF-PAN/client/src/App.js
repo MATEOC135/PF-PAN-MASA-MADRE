@@ -7,6 +7,9 @@ import ProductDetailsContainer from './containers/ProductDetailsContainer';
 import NavigationBar from './components/NavigationBar';
 
 import FormContainer from './containers/FormContainer';
+import axios from "axios";
+axios.defaults.baseURL='https://pan-4dg1.onrender.com';
+
 
 
 const App = () => {
