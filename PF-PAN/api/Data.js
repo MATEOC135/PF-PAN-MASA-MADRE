@@ -1,6 +1,5 @@
 const product = [
     {
-    id:"1",
     name:"Mixed mother",
     availability:"true",
     weight: "1kg",
@@ -11,7 +10,6 @@ const product = [
     image:"https://www.petitchef.es/recetas/otro/pan-mixto-con-masa-madre-eric-kaiser-fid-1183874"
     },
     {
-    id:"2",
     name:"Japanese silk",
     availability:"true",
     weight: "1kg",
@@ -22,7 +20,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2021/11/163610700477362a8d01e.png",
     },
     {
-    id:"3",
     name:"pita bread",
     availability:"true",
     weight:"1kg",
@@ -33,7 +30,6 @@ const product = [
     image:"http://casaperris.com/wp-content/uploads/2023/04/1509628124300ffffffffbfe76fc8.jpg",
     },
     {
-    id:"4",
     name:"mini muffins",
     availability:"true",
     weight:"1kg",
@@ -44,7 +40,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/15001170742341aa04ee4.jpg",
     },
     {
-    id:"5",
     name:"tiger bread",
     availability:"true",
     weight:"1.5kg",
@@ -55,7 +50,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1510934794580ffffffff8b782b48.jpg"
     },
     {
-    id:"6",
     name:"turkish plane",
     availability:"true",
     weight:"1kg",
@@ -66,7 +60,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/152148688569213e49ad7.png",
     },
     {
-    id:"7",
     name:"Gluten-free bread",
     availability:"true",
     weight:"1kg",
@@ -77,7 +70,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1499846125868ffffffffa41dc97c.jpg",
     },
     {
-    id:"8",
     name:"bread with nuts",
     availability:"true",
     weight:"2kg",
@@ -88,7 +80,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/15556572629475c42e448.jpg",
     },
     {
-    id:"9",
     name:"Spelled and wheat bread",
     availability:"true",
     weight:"1.5kg",
@@ -99,7 +90,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1520356832934ffffffff8556041a.jpg",
     },
     {
-    id:"10",
     name:"Wheat, rye and molasses bread",
     availability:"true",
     weight:"1kg",
@@ -110,7 +100,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1494864215428ffffffffaf57c853.jpg",
     },
     {
-    id:"11",
     name:"Bread with nuts and raisins without oven",
     availability:"true",
     weight:"2kg",
@@ -121,7 +110,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/15334894428615980fc55.jpg",
     },
     {
-    id:"12",
     name:"Brioche for the end of the year",
     availability:"true",
     weight:"1.5kg",
@@ -132,7 +120,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/15146201121922c787ddb.jpg",
     },
     {
-    id:"13",
     name:"Coca de Cacaus",
     availability:"true",
     weight:"1kg",
@@ -143,7 +130,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1508916567321ffffffffca14031d.jpg",
     },
     {
-    id:"14",
     name:"Homemade bread",
     availability:"true",
     weight:"1kg",
@@ -154,7 +140,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/149052118851020f52ccf.jpg",
     },
     {
-    id:"15",
     name:"Wheat and rye flatbreads",
     availability:"true",
     weight:"1kg",
@@ -165,7 +150,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/148916753566926f757f2.jpg",
     },
     {
-    id:"16",
     name:"Forner's Coke",
     availability:"true",
     weight:"2kg",
@@ -176,7 +160,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/148899724700712d8cbb2.jpg",
     },
     {
-    id:"17",
     name:"Japanese brioche recipe (tangzhong technique)",
     availability:"true",
     weight:"2kg",
@@ -187,7 +170,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/14849417541842d33850a.jpg",
     },
     {
-    id:"18",
     name:"naan bread with zaatar",
     availability:"true",
     weight:"1kg",
@@ -198,7 +180,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/148450930269775c8c7d6.jpg",
     },
     {
-    id:"19",
     name:"Dried tomato focaccia",
     availability:"true",
     weight:"1.5kg",
@@ -209,7 +190,6 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/14815718707366b94dea9.jpg",
     },
     {
-    id:"20",
     name:"Whole wheat bread",
     availability:"true",
     weight:"1kg",
@@ -220,7 +200,6 @@ const product = [
     image:"https://cdn.doers.video/embed/bc4e4b75c9c1b1c72c207291d9a1183cac2ed31526384852/beneficios-pan-integral.jpg",
     },
     {
-    id:"21",
     name:"gluten bread",
     availability:"true",
     weight:"1kg",
@@ -231,7 +210,6 @@ const product = [
     image:"https://www.mujerdeelite.com/fotos/591/591_l.jpg",
     },
     {
-    id:"22",
     name:"Bran bread",
     availability:"true",
     weight:"1kg",
@@ -242,7 +220,6 @@ const product = [
     image:"https://cdn0.recetasgratis.net/es/posts/1/6/9/pan_de_salvado_de_trigo_28961_600_square.jpg"
     },
     {
-    id:"23",
     name:"apple bread",
     availability:"true",
     weight:"2kg",
@@ -253,7 +230,6 @@ const product = [
     image:"https://enharinado.com/wp-content/uploads/2022/02/Pan-de-manzana.jpg",
     },
     {
-    id:"24",
     name:"sesame bread",
     availability:"true",
     weight:"1kg",
@@ -263,8 +239,7 @@ const product = [
     price:"2$",
     image:"https://placeralplato.com/files/2017/05/pancitos-de-sesamo-640x480.jpg?width=1200&enable=upscale",
     },
-    {
-        id: "25",        
+    {        
         name: "Oat wheat and black sesame crackers",
         availability: "true",
         weight:"1.5kg",
@@ -275,7 +250,6 @@ const product = [
         image: "https://casaperris.com/wp-content/uploads/2023/05/1480359625639ffffffff8e0feb3a.jpg"
     },
      {
-        id: "26",
         name: "Recipe to make breadsticks with Provencal herbs",
         availability: "true",
         weight:"1kg",
@@ -286,7 +260,6 @@ const product = [
         image: "https://casaperris.com/wp-content/uploads/2023/05/1478981340995ffffffff82330e1b.jpg"
     },
      {
-        id: "27",
         name: "torpedo bread",
         availability: "true",
         weight:"1kg",
@@ -297,7 +270,6 @@ const product = [
         image: "https://cdn0.recetasgratis.net/es/posts/7/5/7/pan_torpedo_76757_paso_10_600.webp"
     },
      {
-        id: "28",
         name: "Yeast Orange Bread Recipe",
         availability: "true",
         weight:"1kg",
@@ -308,7 +280,6 @@ const product = [
         image: "https://cdn0.recetasgratis.net/es/posts/8/5/7/pan_de_naranja_con_levadura_76758_paso_8_600.webp"
     },
      {
-        id: "29",
         name: "anise sticks",
         availability: "true",
         weight:"1kg",
@@ -319,7 +290,7 @@ const product = [
         image: "https://cdn0.recetasgratis.net/es/posts/1/4/7/palitos_de_anis_76741_paso_5_600.webp"
     },
      {
-        id: "30",
+    
         name: "Chancay Bread",
         availability: "true",
         weight:"2kg",
