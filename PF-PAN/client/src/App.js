@@ -28,7 +28,7 @@ const App = () => {
           <Route path="/form" component={FormContainer} />
 
 
-          {/* Otras rutas */}
+          {/* Otras ruta */}
         </Switch>
       </div>
     </Router>
