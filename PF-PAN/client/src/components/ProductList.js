@@ -5,6 +5,7 @@ import "./ProductList.css"
 import { Link, useHistory } from 'react-router-dom';
 
 const ProductList = () => {
+
   const dispatch = useDispatch(); 
   const history = useHistory();
 
@@ -62,6 +63,7 @@ const ProductList = () => {
             </Link>
             <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
           </div>
+ 
         ))}
       </div>
     </div>

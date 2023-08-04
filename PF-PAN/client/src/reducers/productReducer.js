@@ -1,3 +1,4 @@
+
 import { ADD_PRODUCT, GET_PRODUCTS } from '../actions/productActions';
 
 const initialState = {
@@ -20,4 +21,6 @@ export default function productReducer(state = initialState, action) {
     default:
       return state;
   }
+
 }
+

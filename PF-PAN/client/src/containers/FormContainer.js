@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './FormContainer.css';
 
@@ -50,6 +52,7 @@ const FormContainer = () => {
   }, [name, ingredients, description, price, image, isUploading, availability, weight, type]);
 
   const handleSubmit = async (event) => {
+
     event.preventDefault();
     const newErrors = findFormErrors();
 
@@ -83,6 +86,7 @@ const FormContainer = () => {
       } catch (error) {
         setMessage(`Hubo un error al crear el producto: ${error}`);
       }
+
     }
 
     setTimeout(() => {
@@ -92,11 +96,13 @@ const FormContainer = () => {
 
   const findFormErrors = () => {
     const newErrors = {};
+
     if (!name || name === '') newErrors.name = 'No puede estar en blanco!';
     if (!ingredients || ingredients === '') newErrors.ingredients = 'No puede estar en blanco!';
     if (!description || description === '') newErrors.description = 'No puede estar en blanco!';
     if (!price || price === '' || price <= 0) newErrors.price = 'Debe ser mayor que cero!';
     if (!image) newErrors.image = 'Debe subir una imagen!';
+
     if (!availability || availability === '') newErrors.availability = 'No puede estar en blanco!';
     if (!weight || weight === '') newErrors.weight = 'No puede estar en blanco!';
     if (!type || type === '') newErrors.type = 'No puede estar en blanco!';
@@ -215,6 +221,7 @@ const FormContainer = () => {
 
         </form>
       </div>
+
     </div>
   );
 };
