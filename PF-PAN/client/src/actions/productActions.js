@@ -1,13 +1,27 @@
-
+import axios from "axios";
 
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const GET_PRODUCTS = 'GET_PRODUCTS'; 
 
-export function addProduct(product) {
-  return { type: ADD_PRODUCT, product };
-}
+export const addProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      await axios.post('http://localhost:3001/client', product);
+      dispatch(getProducts()); // obtenemos todos los productos después de crear uno
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 
-// Definir y exportar la función de acción getProducts
-export function getProducts(products) {
-  return { type: GET_PRODUCTS, products };
-}
+export const getProducts = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/client');
+      dispatch({ type: GET_PRODUCTS, products: response.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+

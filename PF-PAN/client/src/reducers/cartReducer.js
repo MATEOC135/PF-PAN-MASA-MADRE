@@ -8,7 +8,7 @@ const CLEAR_CART = 'CLEAR_CART';
 const ALL_BREADS = "ALL_BREADS"
 const FILTER_TYPE ="FILTER_TYPE"
 const FILTER_WEIGHT = "FILTER_WEIGHT"
-const INCREMENT_PRODUCT_COUNT = 'INCREMENT_PRODUCT_COUNT'; // Nuevo tipo de acción
+const INCREMENT_PRODUCT_COUNT = 'INCREMENT_PRODUCT_COUNT'; 
 
 // Estado inicial
 const cartFromLocalStorage = localStorage.getItem("cartItems")

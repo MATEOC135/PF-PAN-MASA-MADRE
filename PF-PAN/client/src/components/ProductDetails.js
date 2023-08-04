@@ -1,9 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../actions/cartActions'; 
 import "./ProductDetails.css"
 
 const ProductDetails = ({ product }) => {
-  console.log(product)
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+    history.push('/cart');
+  };
+
+  console.log(product);
   return (
     <div className="product-details">
       <div className="product-details-image-desc">
@@ -15,9 +25,7 @@ const ProductDetails = ({ product }) => {
         {product.type && <p className="product-type"><strong>Tipo:</strong>{product.type}</p>}
         {product.price && <p className="product-price">Precio: {product.price}</p>}
       </div>
-      <Link to="/cart">
-        <button className="cart-button">Agregar al Carrito</button>
-      </Link>
+      <button onClick={handleAddToCart} className="cart-button">Agregar al Carrito</button>
     </div>
   );
 };

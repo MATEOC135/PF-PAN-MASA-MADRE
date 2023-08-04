@@ -2,7 +2,7 @@ import { ADD_PRODUCT, GET_PRODUCTS } from '../actions/productActions';
 
 const initialState = {
   products: [],
-  newProducts: []
+  
 };
 
 export default function productReducer(state = initialState, action) {
@@ -15,7 +15,7 @@ export default function productReducer(state = initialState, action) {
     case ADD_PRODUCT:
       return {
         ...state,
-        newProducts: [...state.newProducts, action.product]
+        products: [...state.products, action.product]
       };
     default:
       return state;
