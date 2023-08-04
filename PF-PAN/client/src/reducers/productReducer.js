@@ -1,12 +1,18 @@
-import { ADD_PRODUCT } from '../actions/productActions';
+
+import { ADD_PRODUCT, GET_PRODUCTS } from '../actions/productActions';
 
 const initialState = {
-  newProducts: [],
-  
+  products: [],
+  newProducts: []
 };
 
-const productReducer = (state = initialState, action) => {
+export default function productReducer(state = initialState, action) {
   switch(action.type) {
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: action.products
+      };
     case ADD_PRODUCT:
       return {
         ...state,
@@ -15,6 +21,6 @@ const productReducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
 
-export default productReducer;
+}
+

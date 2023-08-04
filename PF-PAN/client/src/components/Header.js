@@ -2,34 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // Importamos useSelector
 import {allBreads} from "../reducers/cartReducer"
 import { useAuth0 } from '@auth0/auth0-react';
 
-
- 
 const Header = () => {
   const {loginWithRedirect, isAuthenticated, logout} = useAuth0()
   const [breadName, setBreadName] = useState ("");
-  const dispatch =useDispatch()
+  const dispatch = useDispatch()
 
-    function onSearch (bread){
+  // Usamos useSelector para obtener la cantidad de artículos en el carrito
+  const cartItemsCount = useSelector(state => state.cart.items.length);
+
+  function onSearch (bread){
     return  dispatch(allBreads(bread))
   }
   useEffect(()=>{
     onSearch("")
-},[])
-
+  },[])
 
   const handleSearch = (e) => {
-      let { value } = e.target;
-      setBreadName(value);
-    }; 
+    let { value } = e.target;
+    setBreadName(value);
+  }; 
   return (
     <header className="header">
       <div className="header__logo">
        <Link to="/" className="navbar-brand">MasterBakers</Link>
-
       </div>
       <div className="header__search">
         <input type="text" className="form-control" onChange={ handleSearch} placeholder="Buscar productos" />
@@ -37,18 +36,16 @@ const Header = () => {
       </div>
       <div className="header__actions">
         {isAuthenticated?
-        <button className="nav-link" onClick={()=> logout()}>Logout</button>
-        :<button className="nav-link" onClick={()=> loginWithRedirect()}>Login</button>} 
-        <Link to="/cart" className="nav-link">
-          <span className="header__cart-icon">Icono del carrito</span>
-          <span className="header__cart-count">0</span>
+        <button className="nav-link" onClick={()=> logout()}>LOGOUT</button>
+        :<button className="nav-link" onClick={()=> loginWithRedirect()}>LOGIN</button>} 
+        <Link to="/cart" className="nav-link cart-button">
+
+          <span className="header__cart-icon">CARRITO</span>
+          <span className="header__cart-count">{cartItemsCount}</span> {/* Usamos cartItemsCount aquí */}
         </Link>
       </div>
     </header>
   );
 };
 
-
 export default Header;
-
-

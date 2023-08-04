@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'; 
+import { addToCart } from '../actions/cartActions';
 import "./ProductList.css"
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom';
 
 const ProductList = () => {
-  // Seleccionamos los productos del estado
-  const productsFromDB = useSelector(state => state.cart.dataBreads);
-  const productsFromForm = useSelector(state => state.products.newProducts);
 
+  const dispatch = useDispatch(); 
+  const history = useHistory();
+
+  const rawProducts = useSelector(state => state.cart.dataBreads);
+  const [products, setProducts] = useState(rawProducts.flat());
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(6); 
-  const [products,setProducts]= useState([])
+  const [itemsPerPage] = useState(7);
 
-  // Actualizamos el estado de los productos cada vez que cambian
-  // los productos de la base de datos o los del formulario
   useEffect(() => {
-    setProducts([...productsFromDB.flat(), ...productsFromForm.flat()]);
-  }, [productsFromDB, productsFromForm]);
+    setProducts(rawProducts.flat());
+  }, [rawProducts]);
 
-  const totalPages = Math.ceil(products.length / itemsPerPage)
-  useEffect(() => { setCurrentPage(1) }, [products]);
+  const handleAddToCart = (product) => {
+    console.log("action", addToCart(product)); 
+    dispatch(addToCart(product));
+    //history.push('/cart');
+  }
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const pages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -27,7 +32,7 @@ const ProductList = () => {
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage + 1;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
@@ -36,32 +41,29 @@ const ProductList = () => {
 
   return (
     <div>
-      <div className="pagination-container">
-        <ul  className="pagination">
+      <div className="pagination-container">  
+        <ul className="pagination">
           {pages.map((page) => (
-            <li key={page}>
-              <button   className={currentPage === page ? 'active' : ''}
-                onClick={() => handlePageChange(page)}
-              >
+            <li>
+              <button className={currentPage === page ? 'active' : ''} onClick={() => handlePageChange(page)}>
                 {page}
               </button>
             </li>
           ))}
         </ul>
       </div>
-
       <div className="product-list">
         {currentProducts.map((product) => (
-          <Link to={`/product/${product.id}`} key={product.id}>
-            <div className="product">
+          <div key={product.id} className="product">
+            <Link to={`/product/${product.name}`}>
               <img src={product.image} alt={product.name} />
               <h3>{product.name}</h3> 
-              <p>Precio: ${product.price}</p>
-              <p>Peso: ${product.weight || product.weights}</p>
-              <p>Tipo: ${product.type || product.types}</p>
-              <button>Agregar al carrito</button>
-            </div>
-          </Link>
+              <p>{product.weight || product.weights}</p>
+              <p>{product.type || product.types}</p>
+            </Link>
+            <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
+          </div>
+ 
         ))}
       </div>
     </div>

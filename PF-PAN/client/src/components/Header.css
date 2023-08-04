@@ -52,28 +52,20 @@
 
 .header__actions > * {
   margin: 0 10px;
-  color: white;
-  border: 1px solid transparent;
+  color: #bb0d33; /* Color de las letras del login y del carrito a rojo */
   padding: 5px;
-  transition: border-color 0.3s ease;
+  /* eliminamos la transición y el borde */
 }
 
 .header__actions > *:hover,
 .header__actions > *:active {
-  border-color: white;
+  /* eliminamos el borde blanco al hacer hover */
 }
 
 .header__cart-icon {
   margin-right: 5px;
   color: #bb0d33; /* Rojo de McDonald's */
-  border: 1px solid transparent;
   padding: 5px;
-  transition: border-color 0.3s ease;
-}
-
-.header__cart-icon:hover,
-.header__cart-icon:active {
-  border-color: white;
 }
 
 .header__cart-count {

@@ -10,13 +10,71 @@
 }
 
 .cart-items {
-  border: 1px solid #ddd;
-  border-radius: 4px;
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .cart-item {
-  margin-bottom: 10px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px; /* Suaviza las esquinas de los elementos del carrito */
+  width: calc(30% - 20px); /* Asegura que más elementos encajen en una línea, ajustar según tus necesidades */
+  background-color: #FFC72C; /* Amarillo anaranjado de McDonald's */
+  color: #111; /* Negro */
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cart-item button {
+  color: #fff;
+  background-color: #ff0000;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: auto; /* Alinea el botón a la derecha */
+}
+
+
+.cart-item h3 {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.cart-item img {
+  border-radius: 8px;
+  margin: 10px 0; /* Añadido margen para dar espacio alrededor de la imagen */
+  width: 100%; /* Asegura que la imagen se ajuste al tamaño de la tarjeta */
+}
+
+.cart-item button {
+  color: #fff;
+  background-color: #ff0000; /* Color rojo para el botón de eliminar */
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  align-self: flex-end;
+  order: 3; /* Esto pone el botón debajo del precio y la cantidad */
+}
+
+.cart-item button:hover {
+  background-color: #cc0000; /* Color rojo oscuro al pasar el ratón por encima */
+}
+
+.cart-item p {
+  align-self: flex-start;
+  order: 2; /* Esto pone la cantidad y el precio encima del botón de eliminar */
 }
 
 .cart-summary {
@@ -29,9 +87,26 @@
 .cart-summary p {
   font-weight: bold;
   color: #111; /* Negro */
+  background-color: #FFC72C;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
 
 .cart-checkout-button {
+  background-color: #76ff2c; /* Amarillo anaranjado de McDonald's */
+  color: #111; /* Negro */
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1.2em; /* Hace la letra del botón más grande */
+}
+
+.cart-checkout-button:hover {
+  background-color: #FFD745; /* Amarillo claro anaranjado de McDonald's */
+}
+.continue-shopping-button {
   background-color: #FFC72C; /* Amarillo anaranjado de McDonald's */
   color: #111; /* Negro */
   border: none;
@@ -39,8 +114,11 @@
   padding: 8px 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 1.2em; /* Hace la letra del botón más grande */
+  margin-top: 20px; /* Margen superior para separarlo de los otros elementos */
 }
 
-.cart-checkout-button:hover {
+.continue-shopping-button:hover {
   background-color: #FFD745; /* Amarillo claro anaranjado de McDonald's */
 }
+

@@ -1,12 +1,9 @@
-// FormContainer.js
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addProduct } from '../actions/productActions';
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './FormContainer.css';
-
-
-
 
 const FormContainer = () => {
   const [name, setName] = useState('');
@@ -16,14 +13,46 @@ const FormContainer = () => {
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
+  const [disable, setDisable] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [availability, setAvailability] = useState('true');
+  const [weight, setWeight] = useState('');
+  const [type, setType] = useState('');
+  const [fileInputState, setFileInputState] = useState(''); 
 
-  const dispatch = useDispatch();
+  const preset_key='masaMadre'
+  const cloud_name='dgl2qd5oj'
 
-  const handleImageChange = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith('image/')) {
+      console.log('Solo se admiten imágenes');
+      return;
+    }
+    setIsUploading(true); 
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', preset_key);
+
+    try {
+      const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData);
+      setImage(res.data.secure_url); 
+      setIsUploading(false);
+      setFileInputState('');
+    } catch (err) {
+      console.log(err);
+      setIsUploading(false);
+    }
   };
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    const errorObj = findFormErrors();
+    setErrors(errorObj);
+    setDisable(!!Object.keys(errorObj).length || isUploading);
+  }, [name, ingredients, description, price, image, isUploading, availability, weight, type]);
+
+  const handleSubmit = async (event) => {
+
     event.preventDefault();
     const newErrors = findFormErrors();
 
@@ -33,21 +62,31 @@ const FormContainer = () => {
     } else {
       const newProduct = {
         name,
-        ingredients,
+        availability,
+        weight,
+        type,
+        ingredients: ingredients.split(','),
         description,
-        price,
-        image
+        price: `$${price}`,
+        image,
       };
 
-      dispatch(addProduct(newProduct));
+      try {
+        await axios.post('http://localhost:3001/client', newProduct);
+        setName('');
+        setIngredients('');
+        setDescription('');
+        setPrice('');
+        setImage(null);
+        setAvailability('true');
+        setWeight('');
+        setType('');
+        setErrors({});
+        setMessage('Producto creado con éxito');
+      } catch (error) {
+        setMessage(`Hubo un error al crear el producto: ${error}`);
+      }
 
-      setName('');
-      setIngredients('');
-      setDescription('');
-      setPrice('');
-      setImage(null);
-      setErrors({});
-      setMessage('Producto creado con éxito');
     }
 
     setTimeout(() => {
@@ -64,76 +103,125 @@ const FormContainer = () => {
     if (!price || price === '' || price <= 0) newErrors.price = 'Debe ser mayor que cero!';
     if (!image) newErrors.image = 'Debe subir una imagen!';
 
+    if (!availability || availability === '') newErrors.availability = 'No puede estar en blanco!';
+    if (!weight || weight === '') newErrors.weight = 'No puede estar en blanco!';
+    if (!type || type === '') newErrors.type = 'No puede estar en blanco!';
     return newErrors;
   };
 
   return (
-    <div className='divform'>
-      <form onSubmit={handleSubmit}>
-        <h3 className='title'>Crear nuevo producto</h3>
-        <div className='input-div'>
-          <label className='name'>Nombre: </label>
-          <input 
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Nombre..."
-            type="text" 
-            name="names"
-          />
-          {errors.name && <p>{errors.name}</p>}
-        </div>
-        <div className='input-div'>
-          <label className='ingredients'>Ingredientes: </label>
-          <input 
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            placeholder="Ingredientes..."
-            type="text" 
-            name="ingredients"
-          />
-          {errors.ingredients && <p>{errors.ingredients}</p>}
-        </div>
-        <div className='input-div'>
-          <label className='description'>Descripcion: </label>
-          <input 
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Descripcion..."
-            type="text" 
-            name="description"
-          />
-          {errors.description && <p>{errors.description}</p>}
-        </div>
-        <div className='input-div'>
-          <label className='price'>Precio sugerido: </label>
-          <input 
-            value={price}
-            onChange={(e) => {
-              
-              if (!isNaN(e.target.value) && e.target.value >= 0) {
-                setPrice(e.target.value)
-              }
-            }}
-            placeholder="Precio..."
-            type="number" 
-            min="0"
-            name="price"
-          />
-          {errors.price && <p>{errors.price}</p>}
-        </div>
-        <div className='input-div'>
-          <label className='image'>Imagen: </label>
-          <input 
-            onChange={handleImageChange}
-            type="file" 
-            accept="image/*"
-            name="image"
-          />
-          {errors.image && <p>{errors.image}</p>}
-        </div>
-        <button className='button' type="submit">Crear</button>
-        {message && <p>{message}</p>}
-      </form> 
+    <div className='container'>
+      <div className='divform'>
+        <form onSubmit={handleSubmit}>
+          <h3 className='title'>Crear nuevo producto</h3>
+
+          <div className='input-div'>
+            <label>Nombre: </label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text" 
+              name="name"
+            />
+            {errors.name && <p>{errors.name}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Ingredientes: </label>
+            <input 
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+              type="text" 
+              name="ingredients"
+            />
+            {errors.ingredients && <p>{errors.ingredients}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Descripción: </label>
+            <input 
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              type="text" 
+              name="description"
+            />
+            {errors.description && <p>{errors.description}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Precio: </label>
+            <input 
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              type="number" 
+              name="price"
+            />
+            {errors.price && <p>{errors.price}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Disponibilidad: </label>
+            <select 
+              value={availability}
+              onChange={(e) => setAvailability(e.target.value)}
+              name="availability"
+            >
+              <option value="true">Disponible</option>
+              <option value="false">No Disponible</option>
+            </select>
+            {errors.availability && <p>{errors.availability}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Peso: </label>
+            <input 
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              type="text" 
+              name="weight"
+            />
+            {errors.weight && <p>{errors.weight}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Tipo: </label>
+            <input 
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              type="text" 
+              name="type"
+            />
+            {errors.type && <p>{errors.type}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label className='image'>Imagen: </label>
+            <input 
+              onChange={handleImageChange}
+              type="file" 
+              name="image"
+              accept="image/*"
+              value={fileInputState}
+            />
+            {errors.image && <p>{errors.image}</p>}
+          </div>
+
+          {message && <div>{message}</div>}
+
+          <div>
+            <button 
+              className={disable || isUploading ? 'button' : 'button-enabled'} 
+              type="submit" 
+              disabled={disable || isUploading}
+            >
+              Crear
+            </button>
+            {message && <p>{message}</p>}
+          </div>
+
+        </form>
+      </div>
+
     </div>
   );
 };
