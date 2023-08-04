@@ -1,24 +1,33 @@
-// cartReducer.js
+
 import axios from "axios";
 
-// Definir los tipos de acciones
+//tipos de acciones
 const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const CLEAR_CART = 'CLEAR_CART';
 const ALL_BREADS = "ALL_BREADS"
 const FILTER_TYPE ="FILTER_TYPE"
 const FILTER_WEIGHT = "FILTER_WEIGHT"
+const INCREMENT_PRODUCT_COUNT = 'INCREMENT_PRODUCT_COUNT'; // Nuevo tipo de acción
+
 // Estado inicial
+const cartFromLocalStorage = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+
 const initialState = {
-  items: [],
+  items: cartFromLocalStorage || [],
   dataBreads:[],
   dataBreadsCF:[],
   dataAux:[],
   dataAuxW:[],
+  productCounts: {}, // Añadimos este objeto al estado inicial
 };
 
 // Reducer del carrito
 const cartReducer = (state = initialState, action) => {
+  console.log('action', action); 
+  let newState;
   switch (action.type) {
     case ALL_BREADS:
       return {
@@ -26,71 +35,42 @@ const cartReducer = (state = initialState, action) => {
         dataBreads: [action.payload],
         dataBreadsCF: [action.payload],
         dataAux:[],
-  
       };
     case ADD_TO_CART:
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      };
-    case REMOVE_FROM_CART:
-      return {
-        ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
-      };
-    case CLEAR_CART:
-      return {
-        ...state,
-        items: [],
-      };
-      ///////////////////////// FILTROS DE TIPO///////////////
-    case FILTER_TYPE:
-
-      if (state.dataAuxW.length >0) {
-        if (action.payload=== "Ninguno") {
-          return   {
-            ...state,
-            dataBreads: [...state.dataAuxW] 
-          };
-          
-        } else {
-          const filterComb= state.dataAuxW.filter((item)=> {
-            const hasType = item.type && item.type === action.payload;
-            console.log(action.payload)
-            const hasTypes = item.types && item.types.some((type) => type.name.includes(action.payload));
-           console.log(hasTypes)
-           
-            return hasType || hasTypes; 
-  
-          })
-          return  {
-            ...state,
-            dataBreads: [...filterComb] 
-          };
-          
-        }
-   
-        
-        
+      const itemInCart = state.items.find((item) => item.name === action.payload.name);
+      if (itemInCart) {
+        itemInCart.quantity += 1;
+        newState = { ...state, items: [...state.items] };
       } else {
-        const filteredItemsT = state.dataBreadsCF.flat().filter((item) => {
-          const hasType = item.type && item.type === action.payload;
-          console.log(action.payload)
-          const hasTypes = item.types && item.types.some((type) => type.name.includes(action.payload));
-         console.log(hasTypes)
-         
-          return hasType || hasTypes;
-        }); 
-        console.log(filteredItemsT)
-        
-          return  {
-              ...state,
-              dataBreads: [...filteredItemsT],
-              dataAux:[...filteredItemsT]
-            };
-
-        
+        const item = action.payload;
+        newState = { ...state, items: [...state.items, { ...item, quantity: 1 }]};
       }
+      localStorage.setItem('cartItems', JSON.stringify(newState.items));
+      return newState;
+
+    case REMOVE_FROM_CART:
+      const itemToRemove = state.items.find((item) => item.name === action.payload);
+      if (itemToRemove.quantity > 1) {
+        itemToRemove.quantity -= 1;
+        newState = { ...state, items: [...state.items] };
+      } else {
+        newState = { ...state, items: state.items.filter((item) => item.name !== action.payload) };
+      }
+      localStorage.setItem("cartItems", JSON.stringify(newState.items));
+      return newState;
+
+    case INCREMENT_PRODUCT_COUNT: // Aquí gestionamos la nueva acción
+      const newProductCounts = { ...state.productCounts };
+      if (newProductCounts[action.payload]) {
+        newProductCounts[action.payload]++;
+      } else {
+        newProductCounts[action.payload] = 1;
+      }
+      return { ...state, productCounts: newProductCounts };
+
+    
+
+
  
  
                 ///////////////////////// FILTROS DE PESO///////////////

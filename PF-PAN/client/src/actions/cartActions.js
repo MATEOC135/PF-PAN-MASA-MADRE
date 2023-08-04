@@ -1,23 +1,25 @@
-// Acción para agregar un producto al carrito
 export const addToCart = (product) => {
-    return {
+  return (dispatch, getState) => {
+    const cart = getState().cart.items.slice();
+    let alreadyInCart = false;
+    cart.forEach((item) => {
+      if (item.name === product.name) {  
+        item.quantity++;
+        alreadyInCart = true;
+      }
+    });
+    if (!alreadyInCart) {
+      cart.push({ ...product, quantity: 1 });
+    }
+    dispatch({
       type: 'ADD_TO_CART',
       payload: product,
-    };
+    });
+
+    // Aquí agregamos la nueva acción
+    dispatch({
+      type: 'INCREMENT_PRODUCT_COUNT',
+      payload: product.name,  // Aquí cambiamos a product.name
+    });
   };
-  
-  // Acción para eliminar un producto del carrito
-  export const removeFromCart = (productId) => {
-    return {
-      type: 'REMOVE_FROM_CART',
-      payload: productId,
-    };
-  };
-  
-  // Acción para vaciar el carrito
-  export const clearCart = () => {
-    return {
-      type: 'CLEAR_CART',
-    };
-  };
-  
+};

@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductDetails from '../components/ProductDetails';
+import axios from 'axios';
 
 const ProductDetailsContainer = () => {
-  const { productId } = useParams();
+  const { name } = useParams();
+  const [product, setProduct] = useState(null);
 
-  
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`/client?name=${name}`);
+        if(response.data) {
+          setProduct(...response.data);
+        }
+      } catch (error) {
+        console.error("There was an error fetching the product!", error);
+      }
+    };
 
-  // Ejemplo de datos de producto
-  const product = {
-    id: productId,
-    name: 'Producto 1',
-    price: 19.99,
-    description: 'Descripción del producto',
-    // Otros detalles del producto
-  };
+    fetchProduct();
+  }, [name]);
 
   return (
     <div className="product-details-container">
-      <ProductDetails product={product} />
+      {product ? <ProductDetails product={product} /> : "Loading..."}
     </div>
   );
 };
