@@ -1,4 +1,7 @@
 
+import { useDispatch } from 'react-redux';
+import { addProduct, getProducts } from '../actions/productActions';
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -19,30 +22,58 @@ const FormContainer = () => {
   const [weight, setWeight] = useState('');
   const [type, setType] = useState('');
   const [fileInputState, setFileInputState] = useState(''); 
+  const dispatch = useDispatch();
 
-  const preset_key='masaMadre'
-  const cloud_name='dgl2qd5oj'
+  const preset_key='masaMadre';
+  const cloud_name='dgl2qd5oj';
+
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file.type.startsWith('image/')) {
-      console.log('Solo se admiten imágenes');
+      setMessage('Solo se admiten imágenes');
       return;
     }
     setIsUploading(true); 
+    setMessage('Cargando imagen...');
+  
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', preset_key);
-
+  
     try {
       const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData);
-      setImage(res.data.secure_url); 
+      const imageUrl = res.data.secure_url;
+      setImage(imageUrl);
+      setFileInputState('');  
       setIsUploading(false);
-      setFileInputState('');
+      setErrors(prevErrors => {
+        const newErrors = { ...prevErrors };
+        delete newErrors.image; 
+        return newErrors;
+      });
+      setMessage('Imagen cargada con éxito');
     } catch (err) {
       console.log(err);
       setIsUploading(false);
+      setMessage('Hubo un problema cargando la imagen');
     }
+  };
+  
+  
+  
+
+  const findFormErrors = () => {
+    const newErrors = {};
+    if (!name || name === '') newErrors.name = 'No puede estar en blanco!';
+    if (!ingredients || ingredients === '') newErrors.ingredients = 'No puede estar en blanco!';
+    if (!description || description === '') newErrors.description = 'No puede estar en blanco!';
+    if (!price || price === '' || price <= 0) newErrors.price = 'Debe ser mayor que cero!';
+    if (!image) newErrors.image = 'Debe subir una imagen!';
+    if (!availability || availability === '') newErrors.availability = 'No puede estar en blanco!';
+    if (!weight || weight === '') newErrors.weight = 'No puede estar en blanco!';
+    if (!type || type === '') newErrors.type = 'No puede estar en blanco!';
+    return newErrors;
   };
 
   useEffect(() => {
@@ -50,12 +81,12 @@ const FormContainer = () => {
     setErrors(errorObj);
     setDisable(!!Object.keys(errorObj).length || isUploading);
   }, [name, ingredients, description, price, image, isUploading, availability, weight, type]);
-
-  const handleSubmit = async (event) => {
+  
+  const handleSubmit = (event) => {
 
     event.preventDefault();
     const newErrors = findFormErrors();
-
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setMessage('No se pudo crear el producto');
@@ -64,50 +95,43 @@ const FormContainer = () => {
         name,
         availability,
         weight,
-        type,
+        type,      
         ingredients: ingredients.split(','),
         description,
-        price: `$${price}`,
+        price: `${price}`,
         image,
       };
 
-      try {
-        await axios.post('http://localhost:3001/client', newProduct);
-        setName('');
-        setIngredients('');
-        setDescription('');
-        setPrice('');
-        setImage(null);
-        setAvailability('true');
-        setWeight('');
-        setType('');
-        setErrors({});
-        setMessage('Producto creado con éxito');
-      } catch (error) {
-        setMessage(`Hubo un error al crear el producto: ${error}`);
-      }
+  
+      axios.post('http://localhost:3001/client', newProduct)
+        .then(() => {
+          dispatch(addProduct(newProduct));
+          return axios.get(`http://localhost:3001/client?name=${name}`)
+        })
+        .then(response => {
+          dispatch(getProducts(response.data));
+          setName('');
+          setIngredients('');
+          setDescription('');
+          setPrice('');
+          setImage(null);
+          setAvailability('true');
+          setWeight('');
+          setType('');
+          setErrors({});
+          setMessage('Producto creado con éxito');
+        })
+        .catch(error => {
+          setMessage(`Hubo un error al crear el producto: ${error}`);
+        });
 
     }
-
+  
     setTimeout(() => {
       setMessage('');
     }, 3000);
   };
 
-  const findFormErrors = () => {
-    const newErrors = {};
-
-    if (!name || name === '') newErrors.name = 'No puede estar en blanco!';
-    if (!ingredients || ingredients === '') newErrors.ingredients = 'No puede estar en blanco!';
-    if (!description || description === '') newErrors.description = 'No puede estar en blanco!';
-    if (!price || price === '' || price <= 0) newErrors.price = 'Debe ser mayor que cero!';
-    if (!image) newErrors.image = 'Debe subir una imagen!';
-
-    if (!availability || availability === '') newErrors.availability = 'No puede estar en blanco!';
-    if (!weight || weight === '') newErrors.weight = 'No puede estar en blanco!';
-    if (!type || type === '') newErrors.type = 'No puede estar en blanco!';
-    return newErrors;
-  };
 
   return (
     <div className='container'>
@@ -160,6 +184,27 @@ const FormContainer = () => {
           </div>
 
           <div className='input-div'>
+    <label className='image' htmlFor="fileUpload">Imagen: </label>
+    <input 
+        id="fileUpload"
+        onChange={handleImageChange}
+        type="file" 
+        name="image"
+        accept="image/*"
+        value={fileInputState}
+        style={{display: "none"}}
+    />
+    <button 
+        type="button"
+        onClick={() => document.getElementById("fileUpload").click()}
+    >
+        {image ? 'Archivo seleccionado' : 'Seleccione un archivo'}
+    </button>
+    {errors.image && <p>{errors.image}</p>}
+    {image && <img src={image} alt="Previsualización de imagen cargada" />}
+</div>
+
+          <div className='input-div'>
             <label>Disponibilidad: </label>
             <select 
               value={availability}
@@ -194,31 +239,8 @@ const FormContainer = () => {
             {errors.type && <p>{errors.type}</p>}
           </div>
 
-          <div className='input-div'>
-            <label className='image'>Imagen: </label>
-            <input 
-              onChange={handleImageChange}
-              type="file" 
-              name="image"
-              accept="image/*"
-              value={fileInputState}
-            />
-            {errors.image && <p>{errors.image}</p>}
-          </div>
-
+          <button disabled={disable} className={disable ? 'submit-button-disabled' : 'submit-button'} type='submit'>Crear Producto</button>
           {message && <div>{message}</div>}
-
-          <div>
-            <button 
-              className={disable || isUploading ? 'button' : 'button-enabled'} 
-              type="submit" 
-              disabled={disable || isUploading}
-            >
-              Crear
-            </button>
-            {message && <p>{message}</p>}
-          </div>
-
         </form>
       </div>
 
@@ -226,4 +248,9 @@ const FormContainer = () => {
   );
 };
 
+
+
 export default FormContainer;
+
+
+

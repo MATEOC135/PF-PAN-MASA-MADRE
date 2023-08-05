@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { addToCart } from '../actions/cartActions';
@@ -7,7 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 const ProductList = () => {
 
   const dispatch = useDispatch(); 
-  const history = useHistory();
+  //const history = useHistory();
 
   const rawProducts = useSelector(state => state.cart.dataBreads);
   const [products, setProducts] = useState(rawProducts.flat());
@@ -69,5 +70,6 @@ const ProductList = () => {
     </div>
   );
 };
+
 
 export default ProductList;

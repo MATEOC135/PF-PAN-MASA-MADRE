@@ -4,7 +4,7 @@ import Header from './components/Header';
 import HomeContainer from './containers/HomeContainer';
 
 import ProductDetailsContainer from './containers/ProductDetailsContainer';
-import ShoppingCart from './components/ShoppingCart'; // Asegúrate de importar ShoppingCart
+import ShoppingCart from './components/ShoppingCart'; 
 import NavigationBar from './components/NavigationBar';
 import FormContainer from './containers/FormContainer';
 import axios from "axios";

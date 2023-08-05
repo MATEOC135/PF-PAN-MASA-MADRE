@@ -45,6 +45,21 @@
 }
 
 
+.submit-button-disabled {
+  background-color: #888;
+  color: white;
+  border: none;
+  cursor: not-allowed;
+}
+
+.submit-button {
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
 .button-enabled {
   border: 3px solid rgb(0, 255, 0);
   background-color: #00ff00;
