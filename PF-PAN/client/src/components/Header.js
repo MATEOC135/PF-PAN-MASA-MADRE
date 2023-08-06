@@ -13,6 +13,7 @@ const Header = () => {
 
   // Usamos useSelector para obtener la cantidad de artículos en el carrito
   const cartItemsCount = useSelector(state => state.cart.items.length);
+  const actualCartItemsCount = isAuthenticated ? cartItemsCount : 0;
 
   function onSearch (bread){
     return  dispatch(allBreads(bread))
@@ -35,14 +36,17 @@ const Header = () => {
         <button onClick={()=>onSearch(breadName)} className="btn btn-primary">Buscar</button>
       </div>
       <div className="header__actions">
-        {isAuthenticated?
+        {isAuthenticated?(
+          <>
         <button className="nav-link" onClick={()=> logout()}>LOGOUT</button>
-        :<button className="nav-link" onClick={()=> loginWithRedirect()}>LOGIN</button>} 
+        
         <Link to="/cart" className="nav-link cart-button">
 
           <span className="header__cart-icon">CARRITO</span>
-          <span className="header__cart-count">{cartItemsCount}</span> {/* Usamos cartItemsCount aquí */}
+          <span className="header__cart-count">{actualCartItemsCount}</span> {/* Usamos cartItemsCount aquí */}
         </Link>
+        </>
+  ):(<button className="nav-link" onClick={()=> loginWithRedirect()}>LOGIN</button> )}
       </div>
     </header>
   );

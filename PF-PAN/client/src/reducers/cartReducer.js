@@ -10,6 +10,7 @@ const FILTER_TYPE ="FILTER_TYPE"
 const FILTER_WEIGHT = "FILTER_WEIGHT"
 const INCREMENT_PRODUCT_COUNT = 'INCREMENT_PRODUCT_COUNT'; 
 
+
 // Estado inicial
 const cartFromLocalStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
@@ -59,7 +60,7 @@ const cartReducer = (state = initialState, action) => {
       localStorage.setItem("cartItems", JSON.stringify(newState.items));
       return newState;
 
-    case INCREMENT_PRODUCT_COUNT: // Aquí gestionamos la nueva acción
+    case INCREMENT_PRODUCT_COUNT: 
       const newProductCounts = { ...state.productCounts };
       if (newProductCounts[action.payload]) {
         newProductCounts[action.payload]++;
@@ -67,6 +68,17 @@ const cartReducer = (state = initialState, action) => {
         newProductCounts[action.payload] = 1;
       }
       return { ...state, productCounts: newProductCounts };
+
+    
+      case CLEAR_CART:
+        return {
+          ...state,
+          items: []
+        };
+  
+      
+
+  
 
     
 
