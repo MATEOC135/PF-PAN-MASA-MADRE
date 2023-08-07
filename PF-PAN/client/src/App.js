@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HomeContainer from './containers/HomeContainer';
+
 import ProductDetailsContainer from './containers/ProductDetailsContainer';
 import ShoppingCart from './components/ShoppingCart'; 
 import NavigationBar from './components/NavigationBar';
@@ -10,6 +11,7 @@ import PaymentComponent from './components/PaymentComponent';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+
 
 axios.defaults.baseURL='http://localhost:3001';
 const stripeTestPromise = loadStripe("pk_test_51NbpzDAXMAaaaz8xIaW0SQu2CwPlQJESfqdqTzvCXbVjPPjlO2xiFdEJuFVRuBMlxRZy4QEtANDDELSIP6plWK36009SwnpBgo");
@@ -44,7 +46,9 @@ const App = () => {
               <Route path="/cart" component={ShoppingCart} />
             
           <Route path="/form" component={FormContainer} />
+
           {/* Otras rutas */}
+
         </Switch>
       </div>
     </Router>

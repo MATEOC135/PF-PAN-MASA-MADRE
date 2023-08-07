@@ -7,6 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const ProductList = () => {
+
   const dispatch = useDispatch(); 
   const {isAuthenticated} = useAuth0()
 
@@ -69,6 +70,7 @@ const ProductList = () => {
             </Link>
             <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
           </div>
+ 
         ))}
       </div>
     </div>

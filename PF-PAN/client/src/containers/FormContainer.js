@@ -1,7 +1,10 @@
+
 import { useDispatch } from 'react-redux';
 import { addProduct, getProducts } from '../actions/productActions';
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './FormContainer.css';
 
@@ -78,9 +81,9 @@ const FormContainer = () => {
     setErrors(errorObj);
     setDisable(!!Object.keys(errorObj).length || isUploading);
   }, [name, ingredients, description, price, image, isUploading, availability, weight, type]);
-
   
   const handleSubmit = (event) => {
+
     event.preventDefault();
     const newErrors = findFormErrors();
   
@@ -98,6 +101,7 @@ const FormContainer = () => {
         price: `${price}`,
         image,
       };
+
   
       axios.post('http://localhost:3001/client', newProduct)
         .then(() => {
@@ -120,13 +124,14 @@ const FormContainer = () => {
         .catch(error => {
           setMessage(`Hubo un error al crear el producto: ${error}`);
         });
+
     }
   
     setTimeout(() => {
       setMessage('');
     }, 3000);
   };
-  
+
 
   return (
     <div className='container'>
@@ -238,6 +243,7 @@ const FormContainer = () => {
           {message && <div>{message}</div>}
         </form>
       </div>
+
     </div>
   );
 };
