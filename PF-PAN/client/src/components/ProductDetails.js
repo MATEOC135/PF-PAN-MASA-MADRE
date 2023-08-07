@@ -3,15 +3,24 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../actions/cartActions'; 
 import "./ProductDetails.css"
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ProductDetails = ({ product }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {isAuthenticated} = useAuth0()
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
-    history.push('/cart');
-  };
+    if (isAuthenticated) {
+      history.push('/cart');;
+  } else {
+      alert("Por favor, inicia sesión para continuar con la compra."); 
+  }
+  }
+
+
+   
 
   console.log(product);
   return (
