@@ -1,27 +1,34 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { addToCart } from '../actions/cartActions';
 import "./ProductList.css"
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ProductList = () => {
 
   const dispatch = useDispatch(); 
-  const history = useHistory();
+  const {isAuthenticated} = useAuth0()
 
   const rawProducts = useSelector(state => state.cart.dataBreads);
   const [products, setProducts] = useState(rawProducts.flat());
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(7);
 
+
+  
   useEffect(() => {
     setProducts(rawProducts.flat());
   }, [rawProducts]);
 
   const handleAddToCart = (product) => {
     console.log("action", addToCart(product)); 
-    dispatch(addToCart(product));
-    //history.push('/cart');
+    if (isAuthenticated) {
+      dispatch(addToCart(product));
+  } else {
+      alert("Por favor, inicia sesión para continuar con la compra."); 
+  }
   }
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -69,5 +76,6 @@ const ProductList = () => {
     </div>
   );
 };
+
 
 export default ProductList;
