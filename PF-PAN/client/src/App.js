@@ -14,6 +14,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 
+
 const stripeTestPromise = loadStripe("pk_test_51NbpzDAXMAaaaz8xIaW0SQu2CwPlQJESfqdqTzvCXbVjPPjlO2xiFdEJuFVRuBMlxRZy4QEtANDDELSIP6plWK36009SwnpBgo");
 
 const App = () => {
