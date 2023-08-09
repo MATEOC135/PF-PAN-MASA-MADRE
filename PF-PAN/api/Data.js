@@ -1,6 +1,6 @@
 const product = [
     {
-    name:"Mixed mother",
+    name:"Mixed Mother",
     availability:"true",
     weight: "1kg",
     type: "integral",
@@ -10,7 +10,7 @@ const product = [
     image:"https://www.petitchef.es/recetas/otro/pan-mixto-con-masa-madre-eric-kaiser-fid-1183874"
     },
     {
-    name:"Japanese silk",
+    name:"Japanese Silk",
     availability:"true",
     weight: "1kg",
     type:"integral",
@@ -20,7 +20,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2021/11/163610700477362a8d01e.png",
     },
     {
-    name:"pita bread",
+    name:"Pita Bread",
     availability:"true",
     weight:"1kg",
     type:"integral",
@@ -30,7 +30,7 @@ const product = [
     image:"http://casaperris.com/wp-content/uploads/2023/04/1509628124300ffffffffbfe76fc8.jpg",
     },
     {
-    name:"mini muffins",
+    name:"Mini Muffins",
     availability:"true",
     weight:"1kg",
     type:"integral",
@@ -40,7 +40,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/15001170742341aa04ee4.jpg",
     },
     {
-    name:"tiger bread",
+    name:"Tiger Bread",
     availability:"true",
     weight:"1.5kg",
     type:"integral",
@@ -50,7 +50,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1510934794580ffffffff8b782b48.jpg"
     },
     {
-    name:"turkish plane",
+    name:"Turkish Plane",
     availability:"true",
     weight:"1kg",
     type:"integral",
@@ -60,7 +60,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/152148688569213e49ad7.png",
     },
     {
-    name:"Gluten-free bread",
+    name:"Gluten-Free Bread",
     availability:"true",
     weight:"1kg",
     type:"salty",
@@ -70,7 +70,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1499846125868ffffffffa41dc97c.jpg",
     },
     {
-    name:"bread with nuts",
+    name:"Bread with Nuts",
     availability:"true",
     weight:"2kg",
     type:"salty",
@@ -130,7 +130,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/1508916567321ffffffffca14031d.jpg",
     },
     {
-    name:"Homemade bread",
+    name:"Homemade Bread",
     availability:"true",
     weight:"1kg",
     type:"salty",
@@ -170,7 +170,7 @@ const product = [
     image:"https://casaperris.com/wp-content/uploads/2023/04/14849417541842d33850a.jpg",
     },
     {
-    name:"naan bread with zaatar",
+    name:"Naan bread with zaatar",
     availability:"true",
     weight:"1kg",
     type:"salty",
@@ -200,7 +200,7 @@ const product = [
     image:"https://cdn.doers.video/embed/bc4e4b75c9c1b1c72c207291d9a1183cac2ed31526384852/beneficios-pan-integral.jpg",
     },
     {
-    name:"gluten bread",
+    name:"Gluten Bread",
     availability:"true",
     weight:"1kg",
     type:"integral",
@@ -210,7 +210,7 @@ const product = [
     image:"https://www.mujerdeelite.com/fotos/591/591_l.jpg",
     },
     {
-    name:"Bran bread",
+    name:"Bran Bread",
     availability:"true",
     weight:"1kg",
     type:"salty",
@@ -220,7 +220,7 @@ const product = [
     image:"https://cdn0.recetasgratis.net/es/posts/1/6/9/pan_de_salvado_de_trigo_28961_600_square.jpg"
     },
     {
-    name:"apple bread",
+    name:"Apple Bread",
     availability:"true",
     weight:"2kg",
     type:"sweet",
@@ -230,7 +230,7 @@ const product = [
     image:"https://enharinado.com/wp-content/uploads/2022/02/Pan-de-manzana.jpg",
     },
     {
-    name:"sesame bread",
+    name:"Sesame Bread",
     availability:"true",
     weight:"1kg",
     type:"integral",
@@ -260,7 +260,7 @@ const product = [
         image: "https://casaperris.com/wp-content/uploads/2023/05/1478981340995ffffffff82330e1b.jpg"
     },
      {
-        name: "torpedo bread",
+        name: "Torpedo Bread",
         availability: "true",
         weight:"1kg",
         type:"salty",
@@ -280,7 +280,7 @@ const product = [
         image: "https://cdn0.recetasgratis.net/es/posts/8/5/7/pan_de_naranja_con_levadura_76758_paso_8_600.webp"
     },
      {
-        name: "anise sticks",
+        name: "Anise Sticks",
         availability: "true",
         weight:"1kg",
         type:"sweet",

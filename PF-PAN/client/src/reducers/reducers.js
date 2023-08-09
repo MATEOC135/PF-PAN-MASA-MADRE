@@ -3,11 +3,9 @@ import { combineReducers } from 'redux';
 
 
 import productReducer from './productReducer';
-
+import stripeReducer from './stripeReducer';
 import cartReducer from './cartReducer';
-import stripeReducer from './stripeReducer';
 
-import stripeReducer from './stripeReducer';
 
 
 const rootReducer = combineReducers({
