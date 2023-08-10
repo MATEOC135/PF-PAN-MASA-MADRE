@@ -11,8 +11,10 @@ import PaymentComponent from './components/PaymentComponent';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import AdminDashboard from './components/AdminDashboard';
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
+
 
 const stripeTestPromise = loadStripe("pk_test_51NbpzDAXMAaaaz8xIaW0SQu2CwPlQJESfqdqTzvCXbVjPPjlO2xiFdEJuFVRuBMlxRZy4QEtANDDELSIP6plWK36009SwnpBgo");
 
@@ -31,6 +33,7 @@ const App = () => {
         <Header />
         <NavigationBar />
         <Switch>
+        <Route path="/admin" exact component={AdminDashboard} />
           <Route path="/" exact component={HomeContainer} />
           <Route path="/product/:name" component={ProductDetailsContainer} />
           {stripe && (

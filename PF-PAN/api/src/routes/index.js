@@ -12,6 +12,10 @@ const stripeRoutes = require('../handlers/HandlerStripe');
 
 router.use('/stripe', stripeRoutes);
 
+const userRoutes = require('../routes/userRoutes');
+
+router.use('/users', userRoutes);
+
 // Configurar los routers  
 // Ejemplo: router.use('/auth', authRouter);
 

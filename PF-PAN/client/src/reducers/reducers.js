@@ -8,8 +8,6 @@ import cartReducer from './cartReducer';
 
 
 
-
-
 const rootReducer = combineReducers({
 
   newProducts: productReducer,
