@@ -46,10 +46,30 @@ const ProductList = () => {
     setCurrentPage(pageNumber);  
   };
 
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      handlePageChange(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      handlePageChange(currentPage + 1);
+    }
+  };
+
   return (
     <div>
       <div className="pagination-container">  
         <ul className="pagination">
+        <li className='nextPrev'>
+        <button
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+      </li>
           {pages.map((page) => (
             <li>
               <button className={currentPage === page ? 'active' : ''} onClick={() => handlePageChange(page)}>
@@ -57,6 +77,14 @@ const ProductList = () => {
               </button>
             </li>
           ))}
+          <li className='nextPrev'>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </li>
         </ul>
       </div>
       <div className="product-list">
