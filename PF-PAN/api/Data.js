@@ -17,7 +17,7 @@ const product = [
     ingredients:["500 g of strength flour" ,"50 g of sugar" ,"8 g of salt" ,"60g of milk" ,"25g cream" ,"50 g butter room temperature" ,"Between 100 and 150 g of water" ,"3 g dry yeast"],
     description:"Japanese silk bread with Vietnamese green rice",
     price:"$3",
-    image:"https://casaperris.com/wp-content/uploads/2021/11/163610700477362a8d01e.png",
+    image:"https://imgs.search.brave.com/eHXR2HkXga2VOy5DlsL6Mt8Sd0_s-v-4vJwmjxD7HtE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWct/Z2xvYmFsLmNwY2Ru/LmNvbS9yZWNpcGVz/L2JjZTVkYmYwM2Ni/OTQ0YmIvNjgweDQ4/MmNxNzAvcGFuLWRl/LXNlZGEtJUYwJTlG/JThEJTlFLWZvdG8t/cHJpbmNpcGFsLmpw/Zw",
     },
     {
     name:"Pita Bread",
