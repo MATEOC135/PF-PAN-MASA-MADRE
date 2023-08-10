@@ -18,9 +18,7 @@ const Header = () => {
   function onSearch (bread){
     return  dispatch(allBreads(bread))
   }
-  useEffect(()=>{
-    onSearch("")
-  },[])
+  
 
   const handleSearch = (e) => {
     let { value } = e.target;

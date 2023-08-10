@@ -11,19 +11,39 @@ import PaymentComponent from './components/PaymentComponent';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux';
+import { allBreads, postData } from './reducers/cartReducer';
 
 
 axios.defaults.baseURL='http://localhost:3001';
 const stripeTestPromise = loadStripe("pk_test_51NbpzDAXMAaaaz8xIaW0SQu2CwPlQJESfqdqTzvCXbVjPPjlO2xiFdEJuFVRuBMlxRZy4QEtANDDELSIP6plWK36009SwnpBgo");
 
 const App = () => {
+  const [state, setState] = useState(false)
+  const valid = useSelector(state => state.cart.valid);
   const [stripe, setStripe] = useState(null);
-
+  const dispatch =useDispatch()
+    
   useEffect(() => {
+    dispatch(postData([]))
+  
     stripeTestPromise.then(stripeInstance => {
       setStripe(stripeInstance);
     });
+    setState(true)
   }, []);
+
+  useEffect(() => {
+    if (valid) {
+      const timer = setTimeout(() => {
+        dispatch(allBreads(""));
+      }, 1500);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [dispatch, valid]);
 
   return (
     <Router>

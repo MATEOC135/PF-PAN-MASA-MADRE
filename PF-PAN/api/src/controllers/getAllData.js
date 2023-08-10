@@ -5,34 +5,26 @@ const { Op } = require('sequelize');
 const getAllUsers = async(req, res) => {
     const { name } = req.query
     try {
-        if (name === "") {
-            const allBreadDb = await Bread.findAll({
-                include: [
-                  { model: Weight },
-                  { model: Type }  
-                ]
-              });
+        if (name === "" || name === undefined) {
+            const allBreadDb = await Bread.findAll();
               console.log(allBreadDb, "esta es la data bd")
-            const allBreads= [ ...data,...allBreadDb]
+            const allBreads= [...allBreadDb]
             console.log
             res.status(200).json(allBreads)
         } else {    
         if (name !== undefined) {
             let searchName = name.toLowerCase()            
             const allBreadDb = await Bread.findAll({
-                where: { name: { [Op.iLike]: `%${searchName}%` } },
-                include: [
-                  { model: Weight },
-                  { model: Type }  
-                ]
+                where: { name: { [Op.iLike]: `%${searchName}%` } }
               });
-            const dataBreadsHost = await data.filter(e => {
+           
+            const dataBreadsHost = await allBreadDb.filter(e => {
                 const breadName = e.name?.toLowerCase();
                 return breadName.includes(searchName);
             });
-            const totalBreads = [...dataBreadsHost, ...allBreadDb]
+            const totalBreads = [...dataBreadsHost]
             if (!totalBreads.length) {
-                res.status(400).json({ message: "No se encontraron panes  con este nombre" });
+              res.status(200).json({ message: "Pan no encontrado" });
             } else {
                 res.status(200).json(totalBreads);
             }
@@ -48,146 +40,19 @@ const getAllUsers = async(req, res) => {
   ///////////////////////////////// POST BREAD///////////////////////////////////////////////
   const postBread= async (req, res) => {
     const { name, image, ingredients, price,weight,type, description, availability} = req.body;
- 
-  
-
-
     try {
-     
         if (!name || !image || !ingredients|| !price|| !type ||!weight || !description || !availability){
             return res.status(400).json({ message: 'faltan datos ' });
           }
-
-          const ingredientsString = Array.isArray(ingredients) ? ingredients.join(', ') : '';
-
-        
-        const [resp, created] = await Bread.findOrCreate({ where: { name, image, ingredients: ingredientsString, price, description, availability} })
+        const [resp, created] = await Bread.findOrCreate({ where: {  name, image, ingredients, price,weight,type, description, availability} })
         console.log("entra al try")
-
-        if (weight && weight.length) {
-            const categorybd = await Type.findAll({ where: { name:type } });
-            console.log("aqui va processsssssssssssssssss")
-            console.log(categorybd)
-            await resp.addType(categorybd)
-
-        }
-        console.log("entra al try")
- 
-        if (type && type.length) {
-            const categorybdT = await Weight.findAll({ where: { name:weight } });
-            console.log(categorybdT)
-            await resp.addWeight(categorybdT)
-
-        }
         console.log(resp)
-
-
-
         res.status(200).json(resp);
-
-
-
-
-
     } catch (error) {
-
-      console.log("entra al catch")
-      
-        res.status(400).json({ error: error.message })
-
-    }
-
-}
-
-
-
-
-////////////////////////////////////////////////// CATEGORY TYPE ////////////////////////////////////////
-
-
-const getCategoryType = async (req, res) => {
-
-    const categorybd = await Type.findAll();
-    console.log("antes del try")
-    try {
-        if (categorybd.length === 0) {
-
-            let typeB = [];
-            data.forEach(objeto => {
-                if (!objeto.hasOwnProperty('type')) {
-                    typeB.push("sin tipo especifico  asociado");
-                } else {
-                    const temperamentosSeparados = objeto.type
-                    typeB = typeB.concat(temperamentosSeparados)
-                }
-            });
-            console.log(typeB)
-
-            const typeUnique = Array.from(new Set(typeB));
-
-            console.log(typeUnique);
-            const objTypes = typeUnique.map(type1 => ({ name: type1 }))//
-            Type.bulkCreate(objTypes)
-
-
-            const typesCreated = await Type.findAll()
-
-            const typesMap =  typesCreated.map(e => e.name)
-
-            res.status(200).json(typesMap)
-        } else {
-            console.log("entro al elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            const categoryName = categorybd.map(e => e.name)
-            res.status(200).json(categoryName)
-        }
-    } catch (error) {
-        res.status(400).json({ error: error.message })
+    console.log("entra al catch")
+    res.status(400).json({ error: error.message })
     }
 }
-
-const getCategoryTypeB = async (req, res) => {
-
-    const categorybd = await Weight.findAll();
-    console.log("antes del try")
-    try {
-        if (categorybd.length === 0) {
-
-            let typeB = [];
-            data.forEach(objeto => {
-                if (!objeto.hasOwnProperty('weight')) {
-                    typeB.push("sin tipo especifico  asociado");
-                } else {
-                    const weight1 = objeto.weight
-                    typeB = typeB.concat(weight1)
-                }
-            });
-            console.log(typeB)
-
-            const typeUnique = Array.from(new Set(typeB));
-
-            console.log(typeUnique);
-            const objTypes = typeUnique.map(type1 => ({ name: type1 }))//aqui creamos un array de objetos a pushear en DIets
-            Weight.bulkCreate(objTypes) // aqui crea las filas
-
-
-            const typesCreated = await Weight.findAll()
-
-            const typesMap =  typesCreated.map(e => e.name)
-
-            res.status(200).json(typesMap)
-        } else {
-            console.log("entro al elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            const categoryName = categorybd.map(e => e.name)
-            res.status(200).json(categoryName)
-        }
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
-
-
-
-
 
 /////////////////////////////////////////// DETAIL ID /////////////////////////////////////////////
 const getbreadID = async (req, res) =>{
@@ -195,15 +60,7 @@ const getbreadID = async (req, res) =>{
 
     try {
    
-      const bread = await Bread.findByPk(id.toUpperCase(), {
-        
-          include: [
-                    { model: Weight },
-                    { model: Type }  
-                  ]
-       
-      });
-  
+      const bread = await Bread.findByPk(id.toUpperCase());
       if (bread) return res.status(200).json(bread);
       return res.status(404).json({
         error: {
@@ -227,43 +84,52 @@ const getbreadID = async (req, res) =>{
 
 
 
-
-
-
   const postBreadData = async (req, res) => {
     try {
-     
-  
-      for (const bread of data) {
-        const { name, image, ingredients, price, weight, type, description, availability } = bread;
-  
-        if (!name || !image || !ingredients || !price || !type || !weight || !description || !availability) {
-          return res.status(400).json({ message: 'Faltan datos obligatorios.' });
-        }
-  
-        const ingredientsString = Array.isArray(ingredients) ? ingredients.join(', ') : ingredients;
-  
-        const [resp, created] = await Bread.findOrCreate({
-          where: { name, image, ingredients: ingredientsString, price, description, availability }
-        });
-  
-        if (weight && weight.length) {
-          const categorybd = await Type.findAll({ where: { name: type } });
-          await resp.addType(categorybd);
-        }
-  
-        if (type && type.length) {
-          const categorybdT = await Weight.findAll({ where: { name: weight } });
-          await resp.addWeight(categorybdT);
-        }
+      
+      if (!Array.isArray(data) || data.length === 0) {
+        return res.status(400).json({ message: 'Cuerpo de solicitud inválido' });
       }
   
-      res.status(200).json("Datos creados exitosamente.");
+      const allbd = await Bread.findAll();
+      if (allbd.length > 0) {
+        return res.status(200).json({ message: 'Base de datos ya cargada' });
+      }
+  
+      const createdBreads = await Promise.all(data.map(async (e) => {
+        try {
+          const { name, image, ingredients, price, weight, type, description, availability } = e;
+  
+          if (!name || !image || !ingredients || !price || !type || !weight || !description || !availability) {
+            return null;
+          }
+  
+          const ingredientsString = Array.isArray(ingredients) ? ingredients.join(', ') : '';
+  
+          const [resp] = await Bread.findOrCreate({
+            where: { name, image, ingredients: ingredientsString, type, weight, price, description, availability }
+          });
+  
+          return resp;
+        } catch (error) {
+          console.error('Error al insertar datos:', error);
+          return null;
+        }
+      })); 
+  
+      const createdBreadsWithoutNulls = createdBreads.filter(item => item !== null);
+  
+      if (createdBreadsWithoutNulls.length > 0) {
+        res.status(201).json({ message: 'Datos insertados correctamente',cantidaddata:data.length,cantidad: createdBreads.length, createdBreads: createdBreadsWithoutNulls });
+      } else {
+        res.status(400).json({ message: 'No se pudieron insertar los datos' });
+      }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error('Error al procesar la solicitud:', error);
+      res.status(500).json({ error: 'Ocurrió un error al procesar la solicitud' });
     }
   };
-  module.exports = { postBread, getAllUsers, getCategoryType,getCategoryTypeB,getbreadID, postBreadData};
+  module.exports = { postBread, getAllUsers, getbreadID, postBreadData};
   
 
 

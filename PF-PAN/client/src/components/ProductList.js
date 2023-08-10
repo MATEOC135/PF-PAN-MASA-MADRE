@@ -39,13 +39,13 @@ const ProductList = () => {
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage + 1;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage ;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);  
   };
-
+  console.log(currentProducts)
   return (
     <div>
       <div className="pagination-container">  
@@ -60,19 +60,22 @@ const ProductList = () => {
         </ul>
       </div>
       <div className="product-list">
-        {currentProducts.map((product) => (
-          <div key={product.id} className="product">
-            <Link to={`/product/${product.name}`}>
-              <img src={product.image} alt={product.name} />
-              <h3>{product.name}</h3> 
-              <p>{product.weight || product.weights}</p>
-              <p>{product.type || product.types}</p>
-            </Link>
-            <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
-          </div>
- 
-        ))}
+  {currentProducts.length === 0 ? (
+    <p>Productos no encontrados</p>
+  ) : (
+    currentProducts.map((product) => (
+      <div key={product.id} className="product">
+        <Link to={`/product/${product.name}`}>
+          <img src={product.image} alt={product.name} />
+          <h3>{product.name}</h3> 
+          <p>{product.weight}</p>
+          <p>{product.type}</p>
+        </Link>
+        <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
       </div>
+    ))
+  )}
+</div>
     </div>
   );
 };
