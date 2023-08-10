@@ -4,6 +4,11 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+
+
+const userHandler = require('./handlers/HandlerUser.js');
+
+
 const { Sequelize } = require('sequelize');
 const cors = require('cors');
 const fs = require('fs');
@@ -16,16 +21,30 @@ const {
 } = process.env;
 console.log(URL_CLIENT)
 
+
 require('./db.js');
 
 const server = express();
 
 server.name = 'API';
 
+const setUpInitialData = async () => {
+  try {
+    await userHandler.setInitialAdmin();
+  } catch (error) {
+    console.error('Error setting up initial data:', error);
+  }
+};
+
+
+setUpInitialData();
+
+
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cors());
 server.use(cookieParser());
+server.use(cors());
 server.use(morgan('dev'));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', URL_CLIENT); // update to match the domain you will make the request from

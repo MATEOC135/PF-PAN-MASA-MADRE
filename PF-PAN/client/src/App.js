@@ -11,6 +11,7 @@ import PaymentComponent from './components/PaymentComponent';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import AdminDashboard from './components/AdminDashboard';
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 
@@ -32,6 +33,7 @@ const App = () => {
         <Header />
         <NavigationBar />
         <Switch>
+        <Route path="/admin" exact component={AdminDashboard} />
           <Route path="/" exact component={HomeContainer} />
           <Route path="/product/:name" component={ProductDetailsContainer} />
           {stripe && (
