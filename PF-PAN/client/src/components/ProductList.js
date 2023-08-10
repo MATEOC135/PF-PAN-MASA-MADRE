@@ -7,6 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const ProductList = () => {
+
   const dispatch = useDispatch(); 
   const {isAuthenticated} = useAuth0()
 
@@ -63,12 +64,13 @@ const ProductList = () => {
           <div key={product.id} className="product">
             <Link to={`/product/${product.name}`}>
               <img src={product.image} alt={product.name} />
-              <h3>{product.name}</h3> 
-              <p>{product.weight || product.weights}</p>
-              <p>{product.type || product.types}</p>
+              <h3 className='h3'>{product.name}</h3> 
+              <p className='p'> Peso: {product.weight || product.weights}</p>
+              <p className='p'>Tipo: {product.type || product.types}</p>
             </Link>
-            <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
+            <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Agregar al carrito</button> 
           </div>
+ 
         ))}
       </div>
     </div>

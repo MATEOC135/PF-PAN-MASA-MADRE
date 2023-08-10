@@ -33,13 +33,13 @@ const ProductCarousel = () => {
   };
 
   return (
-    <div className="product-carousel">
+    <div  className="product-carousel" >
       <h2 className="carousel-title">Productos más populares</h2>
       <Slider {...settings}>
         {selectedProducts.map((product) => (
-          <div key={product.name} className="product-item">
-            <Link to={`/product/${product.name}`} className="product-details-link">
-            <img src={product.image} alt={product.name} />
+          <div key={product.name}   className="product-item"  >
+            <Link to={`/product/${product.name}`}   className="product-details-link"  >
+            <img src={product.image} alt={product.name} className='img'/>
             <h3>{product.name}</h3>
             <p>Precio: {product.price}</p>
             </Link>

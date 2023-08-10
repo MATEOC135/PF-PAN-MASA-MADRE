@@ -7,8 +7,7 @@ const HomeContainer = () => {
     <div className="home-container">
      
       <ProductCarousel />
-      
-      
+      <br/>
       <ProductList />
     </div>
   );
