@@ -103,10 +103,10 @@ const FormContainer = () => {
       };
 
   
-      axios.post('http://localhost:3001/client', newProduct)
+      axios.post('https://pan-4dg1.onrender.com/client', newProduct)
         .then(() => {
           dispatch(addProduct(newProduct));
-          return axios.get(`http://localhost:3001/client?name=${name}`)
+          return axios.get(`https://pan-4dg1.onrender.com/client?name=${name}`)
         })
         .then(response => {
           dispatch(getProducts(response.data));

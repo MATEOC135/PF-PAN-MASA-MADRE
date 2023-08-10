@@ -28,7 +28,7 @@ const Header = () => {
         try {
             const token = await getAccessTokenSilently();
 
-            const response = await fetch('http://localhost:3001/users', {
+            const response = await fetch('https://pan-4dg1.onrender.com/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
