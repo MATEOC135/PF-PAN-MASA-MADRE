@@ -8,7 +8,7 @@ const AdminDashboard = ({ onClose }) => {
   const history = useHistory();
 
   useEffect(() => {
-    axios.get('http://localhost:3001/users')
+    axios.get('https://pan-4dg1.onrender.com/users')
       .then(response => setUsers(response.data))
       .catch(error => console.error(error));
   }, []);
@@ -16,7 +16,7 @@ const AdminDashboard = ({ onClose }) => {
   const handleAdminToggle = (userId) => {
     if (window.confirm("¿Estás seguro de cambiar el estado de admin de este usuario?")) {
       const user = users.find(u => u.id === userId);
-      axios.put(`http://localhost:3001/users/${userId}`, { ...user, admin: !user.admin })
+      axios.put(`https://pan-4dg1.onrender.com/users/${userId}`, { ...user, admin: !user.admin })
         .then(response => {
           setUsers(prevUsers => prevUsers.map(u => u.id === userId ? response.data : u));
         })
