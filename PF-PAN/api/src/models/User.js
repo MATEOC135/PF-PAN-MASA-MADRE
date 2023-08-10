@@ -7,7 +7,11 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      
+    },
+    auth0_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     },
     name: {
       type: DataTypes.STRING,
@@ -15,13 +19,13 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      defaultValue: 'path/to/default/image.jpg',  // imagen predeterminada
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    adress: {
+    address: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -32,14 +36,14 @@ module.exports = (sequelize) => {
     token: {
         type: DataTypes.STRING,
         allowNull: false
-      },
+    },
     admin: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false
-      },
+    },
   }, {
     timestamps: false,
     underscored: false, 
   });
 };
-
