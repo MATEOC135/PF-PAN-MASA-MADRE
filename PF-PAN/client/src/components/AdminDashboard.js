@@ -52,7 +52,7 @@ const AdminDashboard = ({ onClose }) => {
                 <td>{user.admin ? 'Sí' : 'No'}</td>
                 <td>
                   <button className="admin-dashboard-button toggle-admin" onClick={() => handleAdminToggle(user.id)}>
-                    Toggle Admin
+                    SWITCH
                   </button>
                 </td>
               </tr>

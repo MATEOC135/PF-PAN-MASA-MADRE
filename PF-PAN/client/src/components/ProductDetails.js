@@ -27,14 +27,14 @@ const ProductDetails = ({ product }) => {
     <div className="product-details">
       <div className="product-details-image-desc">
         {product.image && <div className="product-details-image"><img src={product.image} alt={product.name}/></div>}
-        {product.description && <p className="product-description"><strong> Descripcion:</strong> <span>{product.description}</span></p>}
+        {product.description && <p className="product-description"><strong> Description:</strong> <span>{product.description}</span></p>}
       </div>
       <div className="product-details-info">
         <h2 className="product-name">{product.name}</h2>
-        {product.type && <p className="product-type"><strong>Tipo: </strong>{product.type}</p>}
-        {product.price && <p className="product-price">Precio: {product.price}</p>}
+        {product.type && <p className="product-type"><strong>type: </strong>{product.type}</p>}
+        {product.price && <p className="product-price">Price: {product.price}</p>}
       </div>
-      <button onClick={handleAddToCart} className="cart-button">Agregar al Carrito</button>
+      <button onClick={handleAddToCart} className="cart-button">Add to cart</button>
     </div>
   );
 };

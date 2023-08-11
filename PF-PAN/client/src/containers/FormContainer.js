@@ -1,4 +1,3 @@
-
 import { useDispatch } from 'react-redux';
 import { addProduct, getProducts } from '../actions/productActions';
 
@@ -31,11 +30,11 @@ const FormContainer = () => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file.type.startsWith('image/')) {
-      setMessage('Solo se admiten imágenes');
+      setMessage('Only images are allowed');
       return;
     }
     setIsUploading(true); 
-    setMessage('Cargando imagen...');
+    setMessage('Loading image...');
   
     const formData = new FormData();
     formData.append('file', file);
@@ -52,11 +51,11 @@ const FormContainer = () => {
         delete newErrors.image; 
         return newErrors;
       });
-      setMessage('Imagen cargada con éxito');
+      setMessage('Image uploaded successfully');
     } catch (err) {
       console.log(err);
       setIsUploading(false);
-      setMessage('Hubo un problema cargando la imagen');
+      setMessage('There was a problem loading the image');
     }
   };
   
@@ -65,14 +64,18 @@ const FormContainer = () => {
 
   const findFormErrors = () => {
     const newErrors = {};
-    if (!name || name === '') newErrors.name = 'No puede estar en blanco!';
-    if (!ingredients || ingredients === '') newErrors.ingredients = 'No puede estar en blanco!';
-    if (!description || description === '') newErrors.description = 'No puede estar en blanco!';
-    if (!price || price === '' || price <= 0) newErrors.price = 'Debe ser mayor que cero!';
-    if (!image) newErrors.image = 'Debe subir una imagen!';
-    if (!availability || availability === '') newErrors.availability = 'No puede estar en blanco!';
-    if (!weight || weight === '') newErrors.weight = 'No puede estar en blanco!';
-    if (!type || type === '') newErrors.type = 'No puede estar en blanco!';
+    if (!name || name === '') newErrors.name = 'Can not be blank!';
+
+    if (!ingredients || ingredients === '') newErrors.ingredients = 'Can not be blank!';
+
+    if (!description || description === '') newErrors.description = 'Can not be blank!';
+
+    if (!price || price === '' || price <= 0) newErrors.price = 'Must be greater than zero!';
+    
+    if (!image) newErrors.image = 'You must upload an image!';
+    if (!availability || availability === '') newErrors.availability = 'Can not be blank!';
+    if (!weight || weight === '') newErrors.weight = 'Can not be blank!';
+    if (!type || type === '') newErrors.type = 'Can not be blank!';
     return newErrors;
   };
 
@@ -89,7 +92,7 @@ const FormContainer = () => {
   
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      setMessage('No se pudo crear el producto');
+      setMessage('Could not create product');
     } else {
       const newProduct = {
         name,
@@ -119,17 +122,17 @@ const FormContainer = () => {
           setWeight('');
           setType('');
           setErrors({});
-          setMessage('Producto creado con éxito');
+          setMessage('product created successfully');
         })
         .catch(error => {
-          setMessage(`Hubo un error al crear el producto: ${error}`);
+          setMessage(`There was an error creating the product: ${error}`);
         });
 
     }
   
     setTimeout(() => {
       setMessage('');
-    }, 3000);
+    }, 2000);
   };
 
 
@@ -137,10 +140,10 @@ const FormContainer = () => {
     <div className='container'>
       <div className='divform'>
         <form onSubmit={handleSubmit}>
-          <h3 className='title'>Crear nuevo producto</h3>
+          <h3 className='title'>Create new product</h3>
 
           <div className='input-div'>
-            <label>Nombre: </label>
+            <label>Name: </label>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -151,7 +154,7 @@ const FormContainer = () => {
           </div>
 
           <div className='input-div'>
-            <label>Ingredientes: </label>
+            <label>Ingredients: </label>
             <input 
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
@@ -162,7 +165,7 @@ const FormContainer = () => {
           </div>
 
           <div className='input-div'>
-            <label>Descripción: </label>
+            <label>Description: </label>
             <input 
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -173,7 +176,42 @@ const FormContainer = () => {
           </div>
 
           <div className='input-div'>
-            <label>Precio: </label>
+            <label>Availability: </label>
+            <select 
+              value={availability}
+              onChange={(e) => setAvailability(e.target.value)}
+              name="availability"
+            >
+              <option value="true">Availability</option>
+              <option value="false">NoT availability</option>
+            </select>
+            {errors.availability && <p>{errors.availability}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Bread Weight: </label>
+            <select value={weight} onChange={(e) => setWeight(e.target.value)} name="weight">
+              <option value="Seleccione una opcion">Select an option</option>
+              <option value="1kg">1kg</option>
+              <option value="1.5kg">1.5kg</option>
+              <option value="2kg">2kg</option>
+            </select>
+            {errors.weight && <p>{errors.weight}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Bread Type: </label>
+            <select value={type} onChange={(e) => setType(e.target.value)} name="type">
+              <option value="Seleccione una opcion">Select an option</option>
+              <option value="salty">Salty</option>
+              <option value="sweet">Sweet</option>
+              <option value="integral">Integral</option>
+            </select>
+            {errors.type && <p>{errors.type}</p>}
+          </div>
+
+          <div className='input-div'>
+            <label>Price: </label>
             <input 
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -183,8 +221,10 @@ const FormContainer = () => {
             {errors.price && <p>{errors.price}</p>}
           </div>
 
+      
+
           <div className='input-div'>
-    <label className='image' htmlFor="fileUpload">Imagen: </label>
+    <label className='image' htmlFor="fileUpload">Image: </label>
     <input 
         id="fileUpload"
         onChange={handleImageChange}
@@ -204,56 +244,14 @@ const FormContainer = () => {
     {image && <img src={image} alt="Previsualización de imagen cargada" />}
 </div>
 
-          <div className='input-div'>
-            <label>Disponibilidad: </label>
-            <select 
-              value={availability}
-              onChange={(e) => setAvailability(e.target.value)}
-              name="availability"
-            >
-              <option value="true">Disponible</option>
-              <option value="false">No Disponible</option>
-            </select>
-            {errors.availability && <p>{errors.availability}</p>}
-          </div>
 
-          <div className="header__dropdown">
-          <span>SELECCIONE  PESO DE PAN</span>
-        <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">{weight}</span>
-        <div className="header__dropdown-content dropdown-menu">
-   
-          <button className="header__dropdown-item dropdown-item" onClick={() => setWeight("1kg")}>1kg</button>
-          <button className="header__dropdown-item dropdown-item" onClick={() => setWeight("1.5kg")}>1.5kg</button>
-          <button className="header__dropdown-item dropdown-item" onClick={() => setWeight("2kg")}>2kg</button>
-        </div>
-            {errors.weight && <p>{errors.weight}</p>}
-          </div>
 
-     
-          <div className="header__dropdown">
-            <span>SELECCIONE TIPO DE PAN</span>
-        <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">{type}</span>
-        <div className="header__dropdown-content dropdown-menu">
-          <button className="header__dropdown-item dropdown-item"onClick={() => setType("salty")}>Salado</button>
-          <button className="header__dropdown-item dropdown-item" onClick={() => setType("sweet")}>Dulce</button>
-          <button className="header__dropdown-item dropdown-item"onClick={() => setType("integral")}>Integral</button>
-        </div>
-      
-            {errors.type && <p>{errors.type}</p>}
-          </div>
-
-          <button disabled={disable} className={disable ? 'submit-button-disabled' : 'submit-button'} type='submit'>Crear Producto</button>
+          <button disabled={disable} className={disable ? 'submit-button-disabled' : 'submit-button'} type='submit'>Create Product</button>
           {message && <div>{message}</div>}
         </form>
       </div>
-
     </div>
   );
 };
 
-
-
 export default FormContainer;
-
-
-

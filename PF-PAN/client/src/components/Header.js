@@ -71,8 +71,8 @@ const Header = () => {
                 <Link to="/" className="navbar-brand"> { <img  src={logoPagina} alt="Logo" class="img-mediana" /> } </Link>
             </div>
             <div className="header__search">
-                <input type="text" className="form-control" onChange={handleSearch} placeholder="Buscar productos" />
-                <button onClick={() => onSearch(breadName)} className="btn btn-primary">Buscar</button>
+                <input type="text" className="form-control" onChange={handleSearch} placeholder="Search products" />
+                <button onClick={() => onSearch(breadName)} className="btn btn-primary">Look for</button>
             </div>
             <div className="header__actions">
                 {isAuthenticated ? (
@@ -80,7 +80,7 @@ const Header = () => {
                         <button  className="nav-link" onClick={() => logout()}>LOGOUT</button>
 
                         <Link to="/cart" className="nav-link cart-button">
-                            <span className="header__cart-icon">CARRITO</span>
+                            <span className="header__cart-icon">CART</span>
                             <span className="header__cart-count">{actualCartItemsCount}</span>
                         </Link>
                     </>
