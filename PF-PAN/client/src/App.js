@@ -15,17 +15,43 @@ import AdminDashboard from './components/AdminDashboard';
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 
+import { useDispatch, useSelector } from 'react-redux';
+import { allBreads, postData } from './reducers/cartReducer';
+
+import AdminDashboard from './components/AdminDashboard';
+
+axios.defaults.baseURL = process.env.REACT_APP_LOCAL;
+
+
 
 const stripeTestPromise = loadStripe("pk_test_51NbpzDAXMAaaaz8xIaW0SQu2CwPlQJESfqdqTzvCXbVjPPjlO2xiFdEJuFVRuBMlxRZy4QEtANDDELSIP6plWK36009SwnpBgo");
 
 const App = () => {
+  const [state, setState] = useState(false)
+  const valid = useSelector(state => state.cart.valid);
   const [stripe, setStripe] = useState(null);
-
+  const dispatch =useDispatch()
+    
   useEffect(() => {
+    dispatch(postData([]))
+  
     stripeTestPromise.then(stripeInstance => {
       setStripe(stripeInstance);
     });
+    setState(true)
   }, []);
+
+  useEffect(() => {
+    if (valid) {
+      const timer = setTimeout(() => {
+        dispatch(allBreads(""));
+      }, 3500);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [ valid]);
 
   return (
     <Router>

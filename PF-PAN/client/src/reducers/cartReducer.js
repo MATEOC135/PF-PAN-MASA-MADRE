@@ -9,6 +9,9 @@ const ALL_BREADS = "ALL_BREADS"
 const FILTER_TYPE ="FILTER_TYPE"
 const FILTER_WEIGHT = "FILTER_WEIGHT"
 const INCREMENT_PRODUCT_COUNT = 'INCREMENT_PRODUCT_COUNT'; 
+const POST_BREADS = "POST_BREADS";
+const ORDER_ALPH ="ORDER_ALPH"
+const FILTER_COMBINED ="FILTER_COMBINED"
 
 
 // Estado inicial
@@ -23,19 +26,27 @@ const initialState = {
   dataAux:[],
   dataAuxW:[],
   productCounts: {}, // Añadimos este objeto al estado inicial
+  valid:""
 };
 
 // Reducer del carrito
 const cartReducer = (state = initialState, action) => {
-  console.log('action', action); 
+ 
   let newState;
   switch (action.type) {
+    case POST_BREADS:
+      return {
+        ...state,
+        valid: "Base de datos ya cargada"
+        
+      };
     case ALL_BREADS:
       return {
         ...state,
         dataBreads: [action.payload],
         dataBreadsCF: [action.payload],
         dataAux:[],
+        dataAuxW:[]
       };
     case ADD_TO_CART:
       const itemInCart = state.items.find((item) => item.name === action.payload.name);
@@ -75,7 +86,74 @@ const cartReducer = (state = initialState, action) => {
           ...state,
           items: []
         };
-  
+       ///////////////////////// FILTROS DE TIPO///////////////
+       case FILTER_COMBINED:  // Nuevo caso de acción para filtros combinados
+       const datare =  [...state.dataBreadsCF]
+      const   [typeFilter, weightFilter]  = action.payload;
+      console.log("aqui esta el payload", typeFilter, weightFilter)
+     
+      if(weightFilter === "Ninguno" && typeFilter === "Ninguno" ) {
+        return {
+          ...state,
+          dataBreads: [...datare]
+        };
+      }
+      
+      if (weightFilter !== "Ninguno" && typeFilter === "Ninguno" ) {
+        let filterweight1 = state.dataBreadsCF.flat().filter((item) => {
+          const hasWeight = item.weight && item.weight === weightFilter;
+          return hasWeight
+       
+        });
+        return  {
+          ...state,
+          dataBreads: [...filterweight1] 
+        };
+        
+        
+      } else if(weightFilter === "Ninguno" && typeFilter !== "Ninguno" ) {
+       let filterType1=state.dataBreadsCF.flat().filter((item) => {
+        const hasType = item.type && item.type === typeFilter;
+        return hasType
+      });
+      return  {
+        ...state,
+        dataBreads: [...filterType1] 
+      };
+      
+        
+      }else{
+        let filterp=state.dataBreadsCF.flat().filter((item) => {
+          const hasType = item.type && item.type === typeFilter;
+          return hasType
+        });
+
+        let filterComb =filterp.filter((item) => {
+          const hasWeight = item.weight && item.weight === weightFilter;
+          return hasWeight
+       
+        });
+
+
+        return  {
+          ...state,
+          dataBreads: [...filterComb] 
+        };
+        
+
+      }
+
+
+      
+      
+   
+    
+      
+    
+
+       ///////////////////
+
+
       
 
   
@@ -86,6 +164,9 @@ const cartReducer = (state = initialState, action) => {
  
  
                 ///////////////////////// FILTROS DE PESO///////////////
+
+
+
    case FILTER_WEIGHT:
     if (state.dataAux.length>0) {
       if (action.payload === "Ninguno") {
@@ -111,26 +192,22 @@ const cartReducer = (state = initialState, action) => {
       }
 
 
-    } else {
-      const filteredItems = state.dataBreadsCF.flat().filter((item) => {
-        const hasTypes = item.weight && item.weight === action.payload;
-        console.log(action.payload)
-        const hasTypess = item.weights && item.weights.some((type) => type.name.includes(action.payload));
-       console.log(hasTypes)
-       
-        return hasTypess || hasTypes;
-      }); 
-      console.log(filteredItems)
-      
-        return  {
-            ...state,
-            dataBreads: [...filteredItems],
-            dataAuxW:[...filteredItems],
-          };
-      
     }
 
+    case ORDER_ALPH:
+      let state1 = state.dataBreads.flat()
+      console.log(state1)
+      let orderCards;
+  if(action.payload === "A - Z"){
+    orderCards =state1.sort((a, b) => a.name.localeCompare(b.name))
+    console.log(orderCards, "aqui es no")
+  }else{
+    orderCards= state1.sort((a, b) => b.name.localeCompare(a.name))
  
+  }return {
+      ...state,
+     dataBreads: [...orderCards]
+    };    
    
     default:
       return state;
@@ -143,8 +220,38 @@ export function allBreads(bread) {
     
     try {
       const {data} = await axios.get(`/client?name=${bread}`)
+      console.log(data)
+      if (data.message) {
+        alert("No existen productos con este nombre")
+      }else{  
+        console.log("esto es get",data)
+        
+        dispatch({type:ALL_BREADS,payload: data})}
+      
   
-      dispatch({type:ALL_BREADS,payload: data})
+  
+      
+    } catch (error) {
+      window.alert(error)
+      
+    }
+  
+  
+  }
+
+}
+export function postData(bread) {  
+  return  async function (dispatch){
+    
+    try {
+      const {data} = await axios.post(`/client/data`,bread)
+      console.log("||||||/-\||||||||||||||||||||||||||")
+      console.log("||||||\_/||||.|.|||||||||||||||||||")
+      console.log("|||||||||||||||||||||||||||||||||||")
+      console.log("esto es post ",data)
+
+
+      dispatch({type:POST_BREADS,payload: bread})
       
     } catch (error) {
       window.alert(error)
@@ -156,6 +263,11 @@ export function allBreads(bread) {
 
 }
 
+export const filterCombined = (type) => ({
+  type: FILTER_COMBINED,
+  payload: type,
+});
+
 export const filterType = (type) => ({
   type: FILTER_TYPE,
   payload: type,
@@ -164,6 +276,11 @@ export const filterWeight = (type) => ({
   type: FILTER_WEIGHT,
   payload: type,
 });
+export const orderalph = (type) => ({
+  type: ORDER_ALPH,
+  payload: type,
+});
+
 
 
 

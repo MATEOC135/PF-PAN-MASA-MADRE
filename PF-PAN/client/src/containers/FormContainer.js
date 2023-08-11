@@ -19,8 +19,8 @@ const FormContainer = () => {
   const [disable, setDisable] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [availability, setAvailability] = useState('true');
-  const [weight, setWeight] = useState('');
-  const [type, setType] = useState('');
+  const [weight, setWeight] = useState('Seleccione una opcion');
+  const [type, setType] = useState('Seleccione una opcion');
   const [fileInputState, setFileInputState] = useState(''); 
   const dispatch = useDispatch();
 
@@ -96,9 +96,9 @@ const FormContainer = () => {
         availability,
         weight,
         type,      
-        ingredients: ingredients.split(','),
+        ingredients,
         description,
-        price: `${price}`,
+        price,
         image,
       };
 
@@ -217,25 +217,28 @@ const FormContainer = () => {
             {errors.availability && <p>{errors.availability}</p>}
           </div>
 
-          <div className='input-div'>
-            <label>Peso: </label>
-            <input 
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              type="text" 
-              name="weight"
-            />
+          <div className="header__dropdown">
+          <span>SELECCIONE  PESO DE PAN</span>
+        <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">{weight}</span>
+        <div className="header__dropdown-content dropdown-menu">
+   
+          <button className="header__dropdown-item dropdown-item" onClick={() => setWeight("1kg")}>1kg</button>
+          <button className="header__dropdown-item dropdown-item" onClick={() => setWeight("1.5kg")}>1.5kg</button>
+          <button className="header__dropdown-item dropdown-item" onClick={() => setWeight("2kg")}>2kg</button>
+        </div>
             {errors.weight && <p>{errors.weight}</p>}
           </div>
 
-          <div className='input-div'>
-            <label>Tipo: </label>
-            <input 
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              type="text" 
-              name="type"
-            />
+     
+          <div className="header__dropdown">
+            <span>SELECCIONE TIPO DE PAN</span>
+        <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">{type}</span>
+        <div className="header__dropdown-content dropdown-menu">
+          <button className="header__dropdown-item dropdown-item"onClick={() => setType("salty")}>Salado</button>
+          <button className="header__dropdown-item dropdown-item" onClick={() => setType("sweet")}>Dulce</button>
+          <button className="header__dropdown-item dropdown-item"onClick={() => setType("integral")}>Integral</button>
+        </div>
+      
             {errors.type && <p>{errors.type}</p>}
           </div>
 

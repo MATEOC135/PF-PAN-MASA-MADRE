@@ -18,6 +18,7 @@ const sequelize = new Sequelize(
       require: false,
     },
   }, 
+
 });
 const basename = path.basename(__filename);
  
@@ -40,7 +41,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Bread,Cart, Type, User , Cart_product,  Weight } = sequelize.models;
+const { Bread,Cart, User , Cart_product, } = sequelize.models;
 /* console.log(Bread,Cart, Type, User , Cart_product, Product_category  )
 console.log("aaaaaaaaaaaaaaa-----------aaaaaaaaaaaa") */
 // Relación uno a muchos: User - Cart
@@ -51,13 +52,6 @@ Cart.belongsTo(User, { foreignKey: 'user_id' });
 Cart.belongsToMany(Bread, { through: Cart_product, foreignKey: 'cart_id' });
 Bread.belongsToMany(Cart, { through: Cart_product, foreignKey: 'bread_id' });
 
-// Relación muchos a muchos: Bread - Type
-Bread.belongsToMany(Type, { through: 'BreadCategory' });
-Type.belongsToMany(Bread, { through: 'BreadCategory' });
-
-// Relación muchos a muchos: Bread - Weight
-Bread.belongsToMany(Weight, { through: 'BreadCategoryB' });
-Weight.belongsToMany(Bread, { through: 'BreadCategoryB' });
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

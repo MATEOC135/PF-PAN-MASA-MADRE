@@ -14,9 +14,9 @@ const Header = () => {
     const cartItemsCount = useSelector(state => state.cart.items.length);
     const actualCartItemsCount = isAuthenticated ? cartItemsCount : 0;
 
-    useEffect(() => {
-        onSearch("");
-    }, []);
+
+
+
 
     useEffect(() => {
         if (isAuthenticated && user) {

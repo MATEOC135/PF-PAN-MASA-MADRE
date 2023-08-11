@@ -20,6 +20,7 @@ const ProductList = () => {
   
   useEffect(() => {
     setProducts(rawProducts.flat());
+    setCurrentPage(1)
   }, [rawProducts]);
 
   const handleAddToCart = (product) => {
@@ -39,7 +40,7 @@ const ProductList = () => {
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage + 1;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage  ;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
@@ -88,6 +89,7 @@ const ProductList = () => {
         </ul>
       </div>
       <div className="product-list">
+
         {currentProducts.map((product) => (
           <div key={product.id} className="product">
             <Link to={`/product/${product.name}`}>
@@ -100,8 +102,10 @@ const ProductList = () => {
           </div>
  
         ))}
+
       </div>
-    </div>
+</div>
+    
   );
 };
 
