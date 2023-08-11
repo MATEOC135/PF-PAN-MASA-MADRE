@@ -1,12 +1,13 @@
 .product-carousel {
   margin: 20px;
+  background: #f2eadf;
 }
 
 .carousel-title {
   font-size: 38px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #FF0000; /* Rojo */
+  color: #292827; /* Rojo */
   text-align: center;
   font-style: italic;
 }
@@ -18,13 +19,14 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 10px;
+  
 }
 
 .product-item {
   flex: 0 0 auto;
   width: 250px;
   margin-right: 10px;
-  border: 1px solid #FFC72C; /* Amarillo anaranjado de McDonald's */
+  border: 2px solid #2f2d29; /* Amarillo anaranjado de McDonald's */
   border-radius: 4px;
   padding: 10px;
   text-align: center;
@@ -51,7 +53,7 @@
 }
 
 .product-item button {
-  background-color: #FFC72C; /* Amarillo anaranjado de McDonald's */
+  background-color: #beb8b1; /* Amarillo anaranjado de McDonald's */
   color: #111; /* Negro */
   border: none;
   border-radius: 4px;
@@ -61,7 +63,7 @@
 }
 
 .product-item button:hover {
-  background-color: #FFD745; /* Amarillo claro anaranjado de McDonald's */
+  background-color: #beb8b1; /* Amarillo claro anaranjado de McDonald's */
 }
 
 .img{

@@ -34,7 +34,7 @@ const ProductCarousel = () => {
 
   return (
     <div  className="product-carousel" >
-      <h2 className="carousel-title">Productos más populares</h2>
+      <h2 className="carousel-title">Los mas buscados</h2>
       <Slider {...settings}>
         {selectedProducts.map((product) => (
           <div key={product.name}   className="product-item"  >

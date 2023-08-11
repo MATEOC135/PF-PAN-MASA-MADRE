@@ -5,6 +5,8 @@ import './Header.css';
 import { useDispatch, useSelector } from "react-redux";
 import { allBreads } from "../reducers/cartReducer";
 import { useAuth0 } from '@auth0/auth0-react';
+import logoPagina from '../images/logoPagina.jpg'; 
+
 
 const Header = () => {
     const { loginWithRedirect, isAuthenticated, logout, user, getAccessTokenSilently } = useAuth0();
@@ -66,7 +68,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="header__logo">
-                <Link to="/" className="navbar-brand">MasterBakers</Link>
+                <Link to="/" className="navbar-brand"> { <img  src={logoPagina} alt="Logo" class="img-mediana" /> } </Link>
             </div>
             <div className="header__search">
                 <input type="text" className="form-control" onChange={handleSearch} placeholder="Buscar productos" />
@@ -75,7 +77,7 @@ const Header = () => {
             <div className="header__actions">
                 {isAuthenticated ? (
                     <>
-                        <button className="nav-link" onClick={() => logout()}>LOGOUT</button>
+                        <button  className="nav-link" onClick={() => logout()}>LOGOUT</button>
 
                         <Link to="/cart" className="nav-link cart-button">
                             <span className="header__cart-icon">CARRITO</span>

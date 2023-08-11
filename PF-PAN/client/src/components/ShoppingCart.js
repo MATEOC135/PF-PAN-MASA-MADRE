@@ -61,7 +61,7 @@ return (
         <div className="cart-items">
           {cartItems.map((item, index) => (
             <div className="cart-item" key={index}>
-              <h3>{item.name}</h3>
+              <h3 className='h3'>{item.name}</h3>
               <img src={item.image} alt={item.name} />
               <div className="cart-item-info">
                 <div>
