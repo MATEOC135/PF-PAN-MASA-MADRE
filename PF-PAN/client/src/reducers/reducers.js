@@ -7,7 +7,6 @@ import stripeReducer from './stripeReducer';
 import cartReducer from './cartReducer';
 
 
-
 const rootReducer = combineReducers({
 
   newProducts: productReducer,

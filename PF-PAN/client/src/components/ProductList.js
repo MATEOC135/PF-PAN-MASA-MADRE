@@ -13,13 +13,14 @@ const ProductList = () => {
 
   const rawProducts = useSelector(state => state.cart.dataBreads);
   const [products, setProducts] = useState(rawProducts.flat());
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage] = useState(6);
 
 
   
   useEffect(() => {
     setProducts(rawProducts.flat());
+    setCurrentPage(1)
   }, [rawProducts]);
 
   const handleAddToCart = (product) => {
@@ -39,7 +40,7 @@ const ProductList = () => {
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage + 1;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage  ;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
@@ -88,6 +89,7 @@ const ProductList = () => {
         </ul>
       </div>
       <div className="product-list">
+
         {currentProducts.map((product) => (
           <div key={product.id} className="product">
             <Link to={`/product/${product.name}`}>
@@ -101,8 +103,10 @@ const ProductList = () => {
           </div>
  
         ))}
+
       </div>
-    </div>
+</div>
+    
   );
 };
 

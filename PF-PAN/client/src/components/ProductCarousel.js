@@ -10,10 +10,7 @@ const ProductCarousel = () => {
   const rawProducts = useSelector(state => state.cart.dataBreads);
   const products = rawProducts.flat().slice(1); // Ignoramos el primer producto antes de ordenar
   const productCounts = useSelector(state => state.cart.productCounts); 
-
-  console.log(products); 
-  console.log(productCounts); 
-
+   console.log(rawProducts)
   const sortedProducts = [...products].sort((a, b) => {
     const countA = productCounts[a.name] || 0;
     const countB = productCounts[b.name] || 0;

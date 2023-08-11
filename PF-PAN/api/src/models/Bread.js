@@ -10,39 +10,39 @@ module.exports = (sequelize) => {
       
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false
       
     },
     ingredients: {
-      type:DataTypes.STRING,
+      type:DataTypes.STRING(1000),
       allowNull: false
     },
     price: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false
     },
     availability: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: false
       },
-/*    category_id: {
-        type: DataTypes.INTEGER,
+    type: {
+        type: DataTypes.STRING(1000),
         allowNull: false
       },
-    categoryb_id: {
-        type: DataTypes.INTEGER,
+    weight: {
+        type: DataTypes.STRING(1000),
         allowNull: false
-      }
-       */
+      },
+
   }, {
     timestamps: false,
     underscored: false, 
