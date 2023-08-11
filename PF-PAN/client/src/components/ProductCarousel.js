@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './productCarousel.css';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const ProductCarousel = () => {
-  const rawProducts = useSelector(state => state.cart.dataBreads);
-  const products = rawProducts.flat().slice(1); // Ignoramos el primer producto antes de ordenar
-  const productCounts = useSelector(state => state.cart.productCounts); 
-   console.log(rawProducts)
-  const sortedProducts = [...products].sort((a, b) => {
-    const countA = productCounts[a.name] || 0;
-    const countB = productCounts[b.name] || 0;
-    return countB - countA;
-  });
+  const [set, setSet] = useState ([]);
+     const seta = async()=>{
+      const bread=""
+      try {
+        const {data} =  await axios.get(`/client?name=${bread}`)
+        console.log(data)
+        if (data.message) {
+          alert("There are no products with this name")
+        }else{ 
+          const aux = data.slice(0,8) 
+          console.log("esto es get",data)
+        setSet(aux)}
+      } catch (error) {
+        window.alert(error)
+      }
+    }
+  useEffect(() => {
+    setTimeout(() => {
+      seta()
+    }, 1700)
+  }, []);
 
-  const selectedProducts = sortedProducts.slice(0, 6); // Ahora mostramos los primeros 6 productos después de ordenar
 
   const settings = {
     dots: true,
@@ -33,14 +44,14 @@ const ProductCarousel = () => {
     <div  className="product-carousel" >
       <h2 className="carousel-title">Popular Products</h2>
       <Slider {...settings}>
-        {selectedProducts.map((product) => (
+        {set.map((product) => (
           <div key={product.name}   className="product-item"  >
             <Link to={`/product/${product.name}`}   className="product-details-link"  >
             <img src={product.image} alt={product.name} className='img'/>
             </Link>
             <h3>{product.name}</h3>
             <p>Price: {product.price}</p>
-            
+           
           </div>
         ))}
       </Slider>

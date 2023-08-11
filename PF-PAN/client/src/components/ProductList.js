@@ -89,26 +89,33 @@ const ProductList = () => {
         </ul>
       </div>
       <div className="product-list">
-
-        {currentProducts.map((product) => (
-          <div key={product.id} className="product">
-            <Link to={`/product/${product.name}`}>
-              <img src={product.image} alt={product.name} />
-           </Link>
-              <h3 className='h3'>{product.name}</h3> 
-              <p className='p'> Weight: {product.weight || product.weights}</p>
-              <p className='p'>Type: {product.type || product.types}</p>
-            
-            <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Add to cart</button> 
-          </div>
- 
-        ))}
-
+    {currentProducts.length > 0 ? (
+    currentProducts.map((product) => (
+      <div key={product.id} className="product">
+        <Link to={`/product/${product.name}`}>
+          <img src={product.image} alt={product.name} />
+          </Link>
+          <h3 className='h3'>{product.name}</h3> 
+          <p className='p'> Price: {product.weight || product.weights}</p>
+          <p className='p'>Type: {product.type || product.types}</p>
+        
+        <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Agregar al carrito</button> 
       </div>
-</div>
-    
-  );
-};
+    ))
+  ) : (
+    <div className="no-products">
+  
+      <p className='bartolomia'><p align="center" width= "200px" height="120px"><a href="https://www.lowgif.com/0b6d8097effad4a8.html" target="_blank" align="center" ><img id="editableimage2" src="https://cdn.lowgif.com/full/0b6d8097effad4a8-burying-head-in-sand-gifs-find-share-on-giphy.gif" border="0" alt="burying head in sand gifs find share on giphy" /></a></p></p>
+      <span className='bartolomia'>Not breads Bartolomiaawwwww</span>
+    </div>
+     )
+
+    }
+    </div>
+    </div>
+  )
+    }
+
 
 
 export default ProductList;
