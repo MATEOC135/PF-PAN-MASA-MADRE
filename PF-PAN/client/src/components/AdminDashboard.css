@@ -1,87 +1,87 @@
 /* Contenedor general, que cubre toda la pantalla */
 .admin-dashboard-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente negro */
-    z-index: 1000; /* Asegura que esté al frente de otros elementos */
-  }
-  
-  /* Estilos del dashboard que estará en el centro */
-  .admin-dashboard-content {
-    background-color: #dfae0e;
-    width: 80%;
-    max-width: 800px; /* puedes ajustar esto según prefieras */
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-  }
-  
-  /* Estilo para la tabla y cabecera */
-  .admin-dashboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .admin-dashboard-table th {
-    background-color: #ff0707;
-    color: white;
-    padding: 15px;
-    font-size: 1.2em;
-  }
-  
-  .admin-dashboard-table td {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .admin-dashboard-table tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  /* Estilo para los botones */
-  .admin-dashboard-button {
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: white;
-  }
-  
-  .admin-dashboard-button.toggle-admin {
-    background-color: #ff0707;
-  }
-  
-  .admin-dashboard-button.toggle-admin:hover {
-    background-color: #e60000;
-  }
-  
-  .title {
-    color: red;
-    font-size: 38pt;
-    font-style: italic;
-    margin-bottom: 1em;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: white;
-    transition: color 0.2s ease;
-  }
-  
-  .close-button:hover {
-    color: #ff0707;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(3, 2, 2, 0.7); /* Fondo semi-transparente casi negro basado en tu paleta */
+  z-index: 1000;
+}
+
+/* Estilos del dashboard que estará en el centro */
+.admin-dashboard-content {
+  background-color: #beb8b1;
+  width: 80%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #070603;
+}
+
+/* Estilo para la tabla y cabecera */
+.admin-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-dashboard-table th {
+  background-color: #55524e;
+  color: #f2eadf;
+  padding: 15px;
+  font-size: 1.2em;
+}
+
+.admin-dashboard-table td {
+  padding: 15px;
+  border-bottom: 1px solid #88847e;
+}
+
+.admin-dashboard-table tr:hover {
+  background-color: #f2eadf;
+}
+
+/* Estilo para los botones */
+.admin-dashboard-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #f2eadf;
+}
+
+.admin-dashboard-button.toggle-admin {
+  background-color: #af2c07;
+}
+
+.admin-dashboard-button.toggle-admin:hover {
+  background-color: #6fd213;
+}
+
+.title {
+  color: #2f2d29;
+  font-size: 38pt;
+  font-style: italic;
+  margin-bottom: 1em;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #f2eadf;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #55524e;
+}

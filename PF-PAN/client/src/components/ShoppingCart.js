@@ -53,8 +53,8 @@ const ShoppingCart = (props) => {
 
 return (
   <div className="shopping-cart">
-    <h2 className="cart-title">Carrito de compras</h2>
-    <h2 className="cart-counter">Items en el carrito: {cartItems ? cartItems.length : 0}</h2>
+    <h2 className="cart-title">Shopping cart</h2>
+    <h2 className="cart-counter">Items in the cart: {cartItems ? cartItems.length : 0}</h2>
     
     {isAuthenticated ? (
       <>
@@ -65,24 +65,24 @@ return (
               <img src={item.image} alt={item.name} />
               <div className="cart-item-info">
                 <div>
-                  <p>Cantidad: {item.quantity}</p>
-                  <p>Precio: {item.price}</p>
+                  <p>Amount: {item.quantity}</p>
+                  <p>Price: {item.price}</p>
                 </div>
-                <button onClick={() => dispatch({ type: 'REMOVE_FROM_CART', payload: item.name })}>Eliminar</button>
+                <button onClick={() => dispatch({ type: 'REMOVE_FROM_CART', payload: item.name })}>Eliminate</button>
               </div>
             </div>
           ))}
         </div>
         <div className="cart-summary">
           <p>Total: ${total.toFixed(2)}</p>
-          <button onClick={handlePaymentClick} className="cart-checkout-button">Pagar</button>
+          <button onClick={handlePaymentClick} className="cart-checkout-button">Pay</button>
         </div>
       </>
     ) : (
-      <p>Por favor, inicie sesión para ver y gestionar su carrito.</p>
+      <p>Please login to view and manage your cart.</p>
     )}
     
-    <button onClick={handleContinueShopping} className="continue-shopping-button">SEGUIR COMPRANDO</button>
+    <button onClick={handleContinueShopping} className="continue-shopping-button">KEEP BUYING</button>
   </div>
 );
 

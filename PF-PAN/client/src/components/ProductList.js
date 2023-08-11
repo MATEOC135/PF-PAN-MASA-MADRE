@@ -96,10 +96,10 @@ const ProductList = () => {
               <img src={product.image} alt={product.name} />
            </Link>
               <h3 className='h3'>{product.name}</h3> 
-              <p className='p'> Peso: {product.weight || product.weights}</p>
-              <p className='p'>Tipo: {product.type || product.types}</p>
+              <p className='p'> Weight: {product.weight || product.weights}</p>
+              <p className='p'>Type: {product.type || product.types}</p>
             
-            <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Agregar al carrito</button> 
+            <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Add to cart</button> 
           </div>
  
         ))}

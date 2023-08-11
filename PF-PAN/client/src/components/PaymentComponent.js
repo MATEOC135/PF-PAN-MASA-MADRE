@@ -97,23 +97,24 @@ function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label htmlFor="cardHolderName">Nombre del titular:</label>
+        <label htmlFor="cardHolderName">Name of owner:</label>
         <input type="text" id="cardHolderName" value={cardHolderName} onChange={e => setCardHolderName(e.target.value)} required />
       </div>
 
       <div className="form-group">
-        <label htmlFor="email">Correo Electrónico:</label>
+        <label htmlFor="email">Email:</label>
         <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required />
       </div>
 
-      <div id="payment-element">
+      <div id="payment-element" className='tarjeta'>
         <CardElement />
       </div>
       
       <button type="submit" disabled={!stripe || loading}>
         {loading ? <div className="spinner"></div> : "Pagar"}
       </button>
-      <button type="button" onClick={() => history.push("/cart")}>Cancelar</button>
+      <br />
+      <button type="button" onClick={() => history.push("/cart")}>Cancel</button>
       <div id="payment-message">
         {message}
       </div>
