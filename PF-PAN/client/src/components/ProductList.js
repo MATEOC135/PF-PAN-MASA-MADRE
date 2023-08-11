@@ -20,6 +20,7 @@ const ProductList = () => {
   
   useEffect(() => {
     setProducts(rawProducts.flat());
+    setCurrentPage(1)
   }, [rawProducts]);
 
   const handleAddToCart = (product) => {
@@ -39,17 +40,37 @@ const ProductList = () => {
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage ;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage  ;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);  
   };
-  console.log(currentProducts)
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      handlePageChange(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      handlePageChange(currentPage + 1);
+    }
+  };
+
   return (
     <div>
       <div className="pagination-container">  
         <ul className="pagination">
+        <li className='nextPrev'>
+        <button
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+      </li>
           {pages.map((page) => (
             <li>
               <button className={currentPage === page ? 'active' : ''} onClick={() => handlePageChange(page)}>
@@ -57,26 +78,34 @@ const ProductList = () => {
               </button>
             </li>
           ))}
+          <li className='nextPrev'>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </li>
         </ul>
       </div>
       <div className="product-list">
-  {currentProducts.length === 0 ? (
-    <p>Productos no encontrados</p>
-  ) : (
-    currentProducts.map((product) => (
-      <div key={product.id} className="product">
-        <Link to={`/product/${product.name}`}>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3> 
-          <p>{product.weight}</p>
-          <p>{product.type}</p>
-        </Link>
-        <button onClick={() => handleAddToCart(product)}>Agregar al carrito</button> 
+
+        {currentProducts.map((product) => (
+          <div key={product.id} className="product">
+            <Link to={`/product/${product.name}`}>
+              <img src={product.image} alt={product.name} />
+              <h3 className='h3'>{product.name}</h3> 
+              <p className='p'> Peso: {product.weight || product.weights}</p>
+              <p className='p'>Tipo: {product.type || product.types}</p>
+            </Link>
+            <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Agregar al carrito</button> 
+          </div>
+ 
+        ))}
+
       </div>
-    ))
-  )}
 </div>
-    </div>
+    
   );
 };
 

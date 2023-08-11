@@ -11,11 +11,16 @@ import PaymentComponent from './components/PaymentComponent';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+
 import { useDispatch, useSelector } from 'react-redux';
 import { allBreads, postData } from './reducers/cartReducer';
 
+import AdminDashboard from './components/AdminDashboard';
 
-axios.defaults.baseURL='http://localhost:3001';
+axios.defaults.baseURL = process.env.REACT_APP_LOCAL;
+
+
+
 const stripeTestPromise = loadStripe("pk_test_51NbpzDAXMAaaaz8xIaW0SQu2CwPlQJESfqdqTzvCXbVjPPjlO2xiFdEJuFVRuBMlxRZy4QEtANDDELSIP6plWK36009SwnpBgo");
 
 const App = () => {
@@ -37,13 +42,13 @@ const App = () => {
     if (valid) {
       const timer = setTimeout(() => {
         dispatch(allBreads(""));
-      }, 1500);
+      }, 3500);
 
       return () => {
         clearTimeout(timer);
       };
     }
-  }, [dispatch, valid]);
+  }, [ valid]);
 
   return (
     <Router>
@@ -51,6 +56,7 @@ const App = () => {
         <Header />
         <NavigationBar />
         <Switch>
+        <Route path="/admin" exact component={AdminDashboard} />
           <Route path="/" exact component={HomeContainer} />
           <Route path="/product/:name" component={ProductDetailsContainer} />
           {stripe && (

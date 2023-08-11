@@ -88,13 +88,14 @@ const cartReducer = (state = initialState, action) => {
         };
        ///////////////////////// FILTROS DE TIPO///////////////
        case FILTER_COMBINED:  // Nuevo caso de acción para filtros combinados
-
+       const datare =  [...state.dataBreadsCF]
       const   [typeFilter, weightFilter]  = action.payload;
       console.log("aqui esta el payload", typeFilter, weightFilter)
      
       if(weightFilter === "Ninguno" && typeFilter === "Ninguno" ) {
         return {
           ...state,
+          dataBreads: [...datare]
         };
       }
       
@@ -222,7 +223,10 @@ export function allBreads(bread) {
       console.log(data)
       if (data.message) {
         alert("No existen productos con este nombre")
-      }else{    dispatch({type:ALL_BREADS,payload: data})}
+      }else{  
+        console.log("esto es get",data)
+        
+        dispatch({type:ALL_BREADS,payload: data})}
       
   
   
@@ -241,10 +245,11 @@ export function postData(bread) {
     
     try {
       const {data} = await axios.post(`/client/data`,bread)
+      console.log("||||||/-\||||||||||||||||||||||||||")
+      console.log("||||||\_/||||.|.|||||||||||||||||||")
       console.log("|||||||||||||||||||||||||||||||||||")
-      console.log("|||||||||||||||||||||||||||||||||||")
-      console.log("|||||||||||||||||||||||||||||||||||")
-      console.log(data)
+      console.log("esto es post ",data)
+
 
       dispatch({type:POST_BREADS,payload: bread})
       
