@@ -9,7 +9,6 @@ const {
 
 } = process.env;
 console.log(DB_USER, DB_PASSWORD, DB_HOST,DB_PORT,DB_NAME)
-
 const sequelize = new Sequelize(
   DB_DEPLOY, {
   logging: false, // set to console.log to see the raw SQL querie

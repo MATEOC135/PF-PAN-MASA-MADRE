@@ -17,6 +17,7 @@ const Header = () => {
 
 
 
+
     useEffect(() => {
         if (isAuthenticated && user) {
             syncUserToBackend(user);

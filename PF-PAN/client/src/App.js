@@ -11,6 +11,9 @@ import PaymentComponent from './components/PaymentComponent';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import AdminDashboard from './components/AdminDashboard';
+
+axios.defaults.baseURL = process.env.REACT_APP_API;
 
 import { useDispatch, useSelector } from 'react-redux';
 import { allBreads, postData } from './reducers/cartReducer';

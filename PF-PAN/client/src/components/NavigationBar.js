@@ -1,6 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavigationBar.css';
 import { Link } from "react-router-dom";
@@ -60,7 +59,6 @@ const NavigationBar = () => {
 
 
 
-
   return (
     <div className="header__navigation-bar navbar navbar-light bg-light">
       {/* Renderizar condicionalmente el botón Dashboard */}
@@ -100,6 +98,7 @@ const NavigationBar = () => {
       </div>
 
       <button className="header__button btn btn-primary" onClick={() => {setSelectedType("Ninguno");  setSelectedWeight("Ninguno"); dispatch(allBreads(""))}}>Reiniciar Filtros</button>
+
 
 
       {/* Renderizar condicionalmente el botón de Crear un nuevo producto */}
