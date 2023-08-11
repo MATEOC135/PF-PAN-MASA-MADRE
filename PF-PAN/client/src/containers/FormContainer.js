@@ -3,6 +3,7 @@ import { addProduct, getProducts } from '../actions/productActions';
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { allBreads } from '../reducers/cartReducer';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './FormContainer.css';
@@ -129,6 +130,10 @@ const FormContainer = () => {
         });
 
     }
+
+    setTimeout(() => {
+      dispatch(allBreads(""))
+    }, 1800);
   
     setTimeout(() => {
       setMessage('');

@@ -14,7 +14,7 @@ const AdminDashboard = ({ onClose }) => {
   }, []);
 
   const handleAdminToggle = (userId) => {
-    if (window.confirm("¿Estás seguro de cambiar el estado de admin de este usuario?")) {
+    if (window.confirm("¿Are you sure to change the admin status of this user?")) {
       const user = users.find(u => u.id === userId);
       axios.put(`https://pan-4dg1.onrender.com/users/${userId}`, { ...user, admin: !user.admin })
         .then(response => {
@@ -32,16 +32,16 @@ const AdminDashboard = ({ onClose }) => {
     <div className="admin-dashboard-overlay">
       <div className="admin-dashboard-content">
         {/* Aquí reemplacé el botón con la "X" por uno que dice "SALIR" */}
-        <button className="exit-button" onClick={handleClose}>SALIR</button>
+        <button className="exit-button" onClick={handleClose}>GO OUT</button>
         
-        <h2 className="title">Dashboard de Administrador</h2>
+        <h2 className="title">Dashboard of administrator</h2>
         <table className="admin-dashboard-table">
           <thead>
             <tr>
-              <th>Nombre</th>
+              <th>Name</th>
               <th>Email</th>
-              <th>Es Admin</th>
-              <th>Acciones</th>
+              <th>Admin</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>

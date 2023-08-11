@@ -222,7 +222,7 @@ export function allBreads(bread) {
       const {data} = await axios.get(`/client?name=${bread}`)
       console.log(data)
       if (data.message) {
-        alert("No existen productos con este nombre")
+        alert("There are no products with this name")
       }else{  
         console.log("esto es get",data)
         

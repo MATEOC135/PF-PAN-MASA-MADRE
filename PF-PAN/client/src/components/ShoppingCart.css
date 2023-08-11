@@ -1,8 +1,10 @@
 .shopping-cart {
   margin: 20px;
+  
 }
 
 .cart-title {
+  position: static; right: 600px; top: 200px;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -14,6 +16,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  
 }
 
 .cart-item {
@@ -28,12 +31,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
 }
 
 .cart-item-info {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+.p{
+  line-height: 0.8; 
 }
 
 .cart-item button {

@@ -53,8 +53,8 @@ const ShoppingCart = (props) => {
 
 return (
   <div className="shopping-cart">
-    <h2 className="cart-title">Shopping cart</h2>
-    <h2 className="cart-counter">Items in the cart: {cartItems ? cartItems.length : 0}</h2>
+    <h2 className="cart-title">SHOPPING CART</h2>
+    <h2 /* className="cart-counter" */>Items in the cart: {cartItems ? cartItems.length : 0}</h2>
     
     {isAuthenticated ? (
       <>
@@ -65,8 +65,8 @@ return (
               <img src={item.image} alt={item.name} />
               <div className="cart-item-info">
                 <div>
-                  <p>Amount: {item.quantity}</p>
-                  <p>Price: {item.price}</p>
+                  <p className='p'>Amount: {item.quantity}</p>
+                  <p className='p'>Price: {item.price}</p>
                 </div>
                 <button onClick={() => dispatch({ type: 'REMOVE_FROM_CART', payload: item.name })}>Eliminate</button>
               </div>

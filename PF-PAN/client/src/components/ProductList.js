@@ -28,7 +28,7 @@ const ProductList = () => {
     if (isAuthenticated) {
       dispatch(addToCart(product));
   } else {
-      alert("Por favor, inicia sesión para continuar con la compra."); 
+      alert("Please log in to continue shopping."); 
   }
   }
 
