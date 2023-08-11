@@ -15,7 +15,7 @@ const ProductDetails = ({ product }) => {
     if (isAuthenticated) {
       history.push('/cart');;
   } else {
-      alert("Por favor, inicia sesión para continuar con la compra."); 
+      alert("Please log in to continue shopping."); 
   }
   }
 

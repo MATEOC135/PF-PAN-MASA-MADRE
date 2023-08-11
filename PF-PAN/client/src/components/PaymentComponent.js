@@ -69,7 +69,7 @@ function CheckoutForm() {
     } else {
       console.log("Pago completado con éxito:", result.paymentIntent);
       sendEmail(); 
-      alert("¡Pago completado con éxito!");  // Añadido alerta para informar al usuario.
+      alert("¡Payment completed successfully!");  // Añadido alerta para informar al usuario.
       dispatch(clearCart()); 
       setTimeout(() => {
         history.push("/");  // Navegar a otra página tras el éxito
