@@ -13,8 +13,8 @@ const ProductList = () => {
 
   const rawProducts = useSelector(state => state.cart.dataBreads);
   const [products, setProducts] = useState(rawProducts.flat());
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage] = useState(6);
 
 
   
@@ -94,10 +94,11 @@ const ProductList = () => {
           <div key={product.id} className="product">
             <Link to={`/product/${product.name}`}>
               <img src={product.image} alt={product.name} />
+           </Link>
               <h3 className='h3'>{product.name}</h3> 
               <p className='p'> Peso: {product.weight || product.weights}</p>
               <p className='p'>Tipo: {product.type || product.types}</p>
-            </Link>
+            
             <button onClick={() => handleAddToCart(product)} className='agregarCarrito' >Agregar al carrito</button> 
           </div>
  

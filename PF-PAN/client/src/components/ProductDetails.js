@@ -31,7 +31,7 @@ const ProductDetails = ({ product }) => {
       </div>
       <div className="product-details-info">
         <h2 className="product-name">{product.name}</h2>
-        {product.type && <p className="product-type"><strong>Tipo:</strong>{product.type}</p>}
+        {product.type && <p className="product-type"><strong>Tipo: </strong>{product.type}</p>}
         {product.price && <p className="product-price">Precio: {product.price}</p>}
       </div>
       <button onClick={handleAddToCart} className="cart-button">Agregar al Carrito</button>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HomeContainer from './containers/HomeContainer';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { allBreads, postData } from './reducers/cartReducer';
 import ProductDetailsContainer from './containers/ProductDetailsContainer';
 import ShoppingCart from './components/ShoppingCart'; 
 import NavigationBar from './components/NavigationBar';
@@ -15,12 +16,6 @@ import AdminDashboard from './components/AdminDashboard';
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 
-import { useDispatch, useSelector } from 'react-redux';
-import { allBreads, postData } from './reducers/cartReducer';
-
-import AdminDashboard from './components/AdminDashboard';
-
-axios.defaults.baseURL = process.env.REACT_APP_LOCAL;
 
 
 
