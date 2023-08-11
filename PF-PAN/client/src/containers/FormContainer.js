@@ -103,10 +103,10 @@ const FormContainer = () => {
       };
 
   
-      axios.post('https://pan-4dg1.onrender.com/client', newProduct)
+      axios.post('http://localhost:3001//client', newProduct)
         .then(() => {
           dispatch(addProduct(newProduct));
-          return axios.get(`https://pan-4dg1.onrender.com/client?name=${name}`)
+          return axios.get(`http://localhost:3001/client?name=${name}`)
         })
         .then(response => {
           dispatch(getProducts(response.data));
@@ -218,7 +218,7 @@ const FormContainer = () => {
           </div>
 
           <div className="header__dropdown">
-          <span>SELECCIONE  PESO DE PAN</span>
+          <label>SELECCIONE  PESO DE PAN</label>
         <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">{weight}</span>
         <div className="header__dropdown-content dropdown-menu">
    
@@ -231,7 +231,7 @@ const FormContainer = () => {
 
      
           <div className="header__dropdown">
-            <span>SELECCIONE TIPO DE PAN</span>
+          <label>SELECCIONE TIPO DE PAN</label>
         <span className="header__all nav-link dropdown-toggle" data-bs-toggle="dropdown">{type}</span>
         <div className="header__dropdown-content dropdown-menu">
           <button className="header__dropdown-item dropdown-item"onClick={() => setType("salty")}>Salado</button>

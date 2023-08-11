@@ -13,8 +13,8 @@ const ProductList = () => {
 
   const rawProducts = useSelector(state => state.cart.dataBreads);
   const [products, setProducts] = useState(rawProducts.flat());
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(7);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage] = useState(6);
 
 
   

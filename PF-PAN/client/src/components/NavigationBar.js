@@ -24,7 +24,7 @@ const NavigationBar = () => {
   // Cargar la información del usuario actual al montar el componente
   useEffect(() => {
     if (loggedAuth0ID) {
-        fetch('https://pan-4dg1.onrender.com/users')
+        fetch('http://localhost:3001/users')        
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error fetching data");
